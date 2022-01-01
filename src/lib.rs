@@ -1,7 +1,6 @@
 #[cfg(test)]
 mod test {
     use super::*;
-    use anyhow::Result;
 
     #[test]
     fn name() {
