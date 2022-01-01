@@ -1,0 +1,38 @@
+[package]
+name = "{{crate_name}}"
+version = "0.1.0"
+edition = "2021"
+authors = ["{{authors}}"]
+readme = "README.md"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+{% if bevy_version == "git" %}bevy = { git = "https://github.com/bevyengine/bevy", features = [
+    "jpeg",
+    "serialize",
+] }{% else %}# Bevy features: https://github.com/bevyengine/bevy/blob/v0.5.0/Cargo.toml#L23-L34
+bevy = { version = "0.5", features = [
+    "jpeg",
+    "serialize",
+] }{% endif %}
+# bevy-retrograde
+# parry2d / 3d
+# rapier2d / 3d
+# noise-rs
+# fastrand
+# ndarray
+# petgraph
+# derive_more
+# enum-iterator
+# itertools
+# serde
+# serde_derive
+# serde_json
+# chrono
+
+[dev-dependencies]
+{% if bevy_version == "git" %}bevy = { git = "https://github.com/bevyengine/bevy", default-features=false, features=["dynamic"] }{% else %}bevy = { version = "0.5", default-features=false, features=["dynamic"] }{% endif %}
+
+[profile.dev.package."*"]
+opt-level = 3

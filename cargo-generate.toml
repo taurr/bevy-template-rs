@@ -1,0 +1,16 @@
+[template]
+cargo_generate_version = ">=0.10.0"
+ignore = ["README.md", "Cargo.lock", ".vscode/settings.json"]
+
+[placeholders]
+github_username = { type = "string", prompt = "GitHub username:" }
+bevy_version = { type = "string", prompt = "Bevy version?", choices = [
+    "latest (0.5)",
+    "git",
+] }
+
+[hooks]
+post = ["rename-readme.rhai"]
+
+[conditional.'crate_type == "lib"']
+ignore = ["src/main.rs"]
