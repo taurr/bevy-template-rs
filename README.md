@@ -2,10 +2,9 @@
 
 This is a template for bootstraping binary or library projects using [Bevy].
 
-By default, the generated template is configured to as fast as possible 
-(see [Setup](https://bevyengine.org/learn/book/getting-started/setup/) in [The Bevy Book]).
-This requires the Rust nightly compiler and a few others - to disable, just edit the generated 
-files: `rust-toolchain.toml` and `.cargo/config.toml`.
+Latest (0.5) [Bevy] version, or GitHub main version, are both supported.
+
+The template can optionally setup the project for using "fast compiles" as described in [The Bevy Book].
 
 ## Usage
 
