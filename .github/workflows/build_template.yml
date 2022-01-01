@@ -11,6 +11,9 @@ on:
       - "**/docs/**"
       - "**.md"
 
+env:
+  CARGO_TERM_COLOR: always
+
 jobs:
   latest_normal:
     runs-on: ubuntu-latest
@@ -23,6 +26,7 @@ jobs:
         with:
           name: ${{ env.PROJECT_NAME }}
           other: "-d github_username=\"taurr\" -d fast_compiles=false -d bevy_version=\"latest (0.5)\""
+
       - name: Setup Rust rust-toolchain
         uses: actions-rs/toolchain@v1
         with:
@@ -30,10 +34,98 @@ jobs:
       - name: Install alsa and udev
         run: sudo apt-get update; sudo apt-get install --no-install-recommends libasound2-dev libudev-dev
         if: runner.os == 'linux'
-      # we need to move the generated project to a temp folder, away from the template project
-      # otherwise `cargo` runs would fail
-      # see https://github.com/rust-lang/cargo/issues/9922
+
       - name: Check expanded template
+        # we need to move the generated project to a temp folder, away from the template project
+        # otherwise `cargo` runs would fail
+        # see https://github.com/rust-lang/cargo/issues/9922
+        run: |
+          mv $PROJECT_NAME ${{ runner.temp }}/
+          cd ${{ runner.temp }}/$PROJECT_NAME
+          cargo check
+
+  git_normal:
+    runs-on: ubuntu-latest
+    env:
+      PROJECT_NAME: mytemplate
+    steps:
+      - uses: actions/checkout@v2
+      - name: Expand template
+        uses: cargo-generate/cargo-generate-action@v0.11.0
+        with:
+          name: ${{ env.PROJECT_NAME }}
+          other: "-d github_username=\"taurr\" -d fast_compiles=false -d bevy_version=\"git\""
+
+      - name: Setup Rust rust-toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - name: Install alsa and udev
+        run: sudo apt-get update; sudo apt-get install --no-install-recommends libasound2-dev libudev-dev
+        if: runner.os == 'linux'
+
+      - name: Check expanded template
+        # we need to move the generated project to a temp folder, away from the template project
+        # otherwise `cargo` runs would fail
+        # see https://github.com/rust-lang/cargo/issues/9922
+        run: |
+          mv $PROJECT_NAME ${{ runner.temp }}/
+          cd ${{ runner.temp }}/$PROJECT_NAME
+          cargo check
+
+  latest_fast:
+    runs-on: ubuntu-latest
+    env:
+      PROJECT_NAME: mytemplate
+    steps:
+      - uses: actions/checkout@v2
+      - name: Expand template
+        uses: cargo-generate/cargo-generate-action@v0.11.0
+        with:
+          name: ${{ env.PROJECT_NAME }}
+          other: "-d github_username=\"taurr\" -d fast_compiles=true -d bevy_version=\"latest (0.5)\""
+
+      - name: Setup Rust rust-toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - name: Install alsa and udev
+        run: sudo apt-get update; sudo apt-get install --no-install-recommends libasound2-dev libudev-dev
+        if: runner.os == 'linux'
+
+      - name: Check expanded template
+        # we need to move the generated project to a temp folder, away from the template project
+        # otherwise `cargo` runs would fail
+        # see https://github.com/rust-lang/cargo/issues/9922
+        run: |
+          mv $PROJECT_NAME ${{ runner.temp }}/
+          cd ${{ runner.temp }}/$PROJECT_NAME
+          cargo check
+
+  git_fast:
+    runs-on: ubuntu-latest
+    env:
+      PROJECT_NAME: mytemplate
+    steps:
+      - uses: actions/checkout@v2
+      - name: Expand template
+        uses: cargo-generate/cargo-generate-action@v0.11.0
+        with:
+          name: ${{ env.PROJECT_NAME }}
+          other: "-d github_username=\"taurr\" -d fast_compiles=true -d bevy_version=\"git\""
+
+      - name: Setup Rust rust-toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - name: Install alsa and udev
+        run: sudo apt-get update; sudo apt-get install --no-install-recommends libasound2-dev libudev-dev
+        if: runner.os == 'linux'
+
+      - name: Check expanded template
+        # we need to move the generated project to a temp folder, away from the template project
+        # otherwise `cargo` runs would fail
+        # see https://github.com/rust-lang/cargo/issues/9922
         run: |
           mv $PROJECT_NAME ${{ runner.temp }}/
           cd ${{ runner.temp }}/$PROJECT_NAME

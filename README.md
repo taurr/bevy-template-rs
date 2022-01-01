@@ -2,9 +2,11 @@
 
 This is a template for bootstraping binary or library projects using [Bevy].
 
-Latest (0.5) [Bevy] version, or GitHub main version, are both supported.
-
-The template can optionally setup the project for using "fast compiles" as described in [The Bevy Book].
+- Latest (0.5) [Bevy] version, or GitHub main version, are both supported.
+- The template can optionally setup the project for using "fast compiles" as described in [The Bevy Book].
+- Basic GitHub workflow for building/testing the resulting project
+- Contains `assets` folder for your game assets
+- Code example for doing integration tests
 
 ## Usage
 
