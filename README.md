@@ -7,6 +7,7 @@ This is a template for bootstraping binary or library projects using [Bevy].
 - Basic GitHub workflow for building/testing the resulting project
 - Contains `assets` folder for your game assets
 - Code example for doing integration tests
+- VSCode launch configuration for executable/unit-tests and integration test
 
 ## Usage
 

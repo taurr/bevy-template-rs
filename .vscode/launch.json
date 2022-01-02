@@ -1,0 +1,83 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {% if crate_type != "lib" %}{
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable '{{project_name}}'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin={{crate_name}}",
+                    "--package={{crate_name}}"
+                ],
+                "filter": {
+                    "name": "{{crate_name}}",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable '{{project_name}}'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin={{crate_name}}",
+                    "--package={{crate_name}}"
+                ],
+                "filter": {
+                    "name": "{{crate_name}}",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },{% endif %}
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in library '{{project_name}}'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--lib",
+                    "--package={{crate_name}}"
+                ],
+                "filter": {
+                    "name": "{{crate_name}}",
+                    "kind": "lib"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        }{% if fast_compiles==false %},
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'example_test'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=example_test",
+                    "--package={{crate_name}}"
+                ],
+                "filter": {
+                    "name": "example_test",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        }{% endif %}
+    ]
+}
