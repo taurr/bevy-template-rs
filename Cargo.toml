@@ -10,7 +10,8 @@ readme = "README.md"
 [dependencies]
 bevy = { version = "0.5", features = [
     "jpeg",
-    "serialize",
+    "serialize",{% if fast_compiles %}
+    "dynamic",{% endif %}
 ] }
 # Other crates of possible interest:
 # parry2d / 3d
@@ -27,9 +28,6 @@ bevy = { version = "0.5", features = [
 # serde_json
 # chrono
 
-{% if fast_compiles %}[dev-dependencies]
-bevy = { version = "0.5", default-features=false, features=["dynamic"] }
-{% endif %}
 {% if bevy_version == "git" %}[patch.crates-io]
 bevy = { git = "https://github.com/bevyengine/bevy" }
 {% endif %}
