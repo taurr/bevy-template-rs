@@ -1,6 +1,11 @@
 [template]
 cargo_generate_version = ">=0.10.0"
-ignore = ["README.md", "Cargo.lock", ".vscode/settings.json", ".github"]
+ignore = [
+    "README.md",
+    ".vscode/settings.json",
+    ".github",
+    "assets/template-expansion.gif",
+]
 
 [placeholders]
 github_username = { type = "string", prompt = "GitHub username:" }

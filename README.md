@@ -14,6 +14,8 @@ This is a template for bootstraping binary or library projects using [Bevy].
 cargo generate taurr/bevy-template-rs
 ```
 
+![Template expansion](./assets/template-expansion.gif)
+
 ## Requirements
 
 [cargo-generate] must be installed. The easiest way to do this is:
