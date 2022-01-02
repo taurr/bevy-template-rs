@@ -3,8 +3,9 @@ cargo_generate_version = ">=0.10.0"
 ignore = [
     "README.md",
     ".vscode/settings.json",
-    ".github",
     "assets/template-expansion.gif",
+    ".github",
+    "target",
 ]
 
 [placeholders]
