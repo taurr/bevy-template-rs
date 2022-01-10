@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 
-#[derive({% if bevy_version == "git" %}Component, {%endif%}Default)]
+#[derive(Component, Default)]
 struct Enemy {
     hit_points: u32,
 }

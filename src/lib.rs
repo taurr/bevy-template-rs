@@ -1,29 +1,24 @@
+pub mod asset_io;
+pub mod debug;
+
 use bevy::prelude::*;
 
 pub struct HelloPlugin;
 
-{% if bevy_version == "git" %}#[derive(Component)]
-{% endif %}pub struct Person;
+#[derive(Component)]
+pub struct Person;
 
-{% if bevy_version == "git" %}#[derive(Component)]
-{% endif %}pub struct Name(String);
+#[derive(Component)]
+pub struct Name(String);
 
 struct GreetTimer(Timer);
-{% if bevy_version == "git" %}
 impl Plugin for HelloPlugin {
     fn build(&self, app: &mut App) {
         app.insert_resource(GreetTimer(Timer::from_seconds(2.0, true)))
             .add_startup_system(add_people)
             .add_system(greet_people);
     }
-}{% else %}
-impl Plugin for HelloPlugin {
-    fn build(&self, app: &mut AppBuilder) {
-        app.insert_resource(GreetTimer(Timer::from_seconds(2.0, true)))
-            .add_startup_system(add_people.system())
-            .add_system(greet_people.system());
-    }
-}{% endif %}
+}
 
 fn add_people(mut commands: Commands) {
     commands
