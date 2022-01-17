@@ -56,9 +56,6 @@ If the template is used on a regular basis, [cargo-generate] allows to setup fav
 
 To do this, open or create the file `$CARGO_HOME/cargo-generate.toml`, insert this:
 ```toml
-[values]
-github_username = "<your github username>" # used in bevy template files where appropriate
-
 [favorites.bevy]
 path = "taurr/bevy-template-rs"
 ```

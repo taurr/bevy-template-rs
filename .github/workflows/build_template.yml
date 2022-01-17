@@ -13,7 +13,7 @@ env:
   LATEST_BEVY: "0.6"
 
 jobs:
-  latest_normal:
+  game_latest_normal:
     runs-on: ubuntu-latest
     env:
       PROJECT_NAME: mytemplate
@@ -23,7 +23,8 @@ jobs:
         uses: cargo-generate/cargo-generate-action@v0.11.0
         with:
           name: ${{ env.PROJECT_NAME }}
-          other: "-d github_username=\"taurr\" -d fast_compiles=false -d bevy_version=${{ env.LATEST_BEVY }}"
+          subfolder: game
+          other: "-d fast_compiles=false -d bevy_version=${{ env.LATEST_BEVY }}"
 
       - name: Setup Rust rust-toolchain
         uses: actions-rs/toolchain@v1
@@ -42,7 +43,7 @@ jobs:
           cd ${{ runner.temp }}/$PROJECT_NAME
           cargo check
 
-  git_normal:
+  game_git_normal:
     runs-on: ubuntu-latest
     env:
       PROJECT_NAME: mytemplate
@@ -52,7 +53,8 @@ jobs:
         uses: cargo-generate/cargo-generate-action@v0.11.0
         with:
           name: ${{ env.PROJECT_NAME }}
-          other: "-d github_username=\"taurr\" -d fast_compiles=false -d bevy_version=\"git\""
+          subfolder: game
+          other: "-d fast_compiles=false -d bevy_version=\"git\""
 
       - name: Setup Rust rust-toolchain
         uses: actions-rs/toolchain@v1
@@ -71,7 +73,7 @@ jobs:
           cd ${{ runner.temp }}/$PROJECT_NAME
           cargo check
 
-  latest_fast:
+  game_latest_fast:
     runs-on: ubuntu-latest
     env:
       PROJECT_NAME: mytemplate
@@ -81,7 +83,8 @@ jobs:
         uses: cargo-generate/cargo-generate-action@v0.11.0
         with:
           name: ${{ env.PROJECT_NAME }}
-          other: "-d github_username=\"taurr\" -d fast_compiles=true -d bevy_version=${{ env.LATEST_BEVY }}"
+          subfolder: game
+          other: "-d fast_compiles=true -d bevy_version=${{ env.LATEST_BEVY }}"
 
       - name: Setup Rust rust-toolchain
         uses: actions-rs/toolchain@v1
@@ -100,7 +103,7 @@ jobs:
           cd ${{ runner.temp }}/$PROJECT_NAME
           cargo check
 
-  git_fast:
+  game_git_fast:
     runs-on: ubuntu-latest
     env:
       PROJECT_NAME: mytemplate
@@ -110,7 +113,8 @@ jobs:
         uses: cargo-generate/cargo-generate-action@v0.11.0
         with:
           name: ${{ env.PROJECT_NAME }}
-          other: "-d github_username=\"taurr\" -d fast_compiles=true -d bevy_version=\"git\""
+          subfolder: game
+          other: "-d fast_compiles=true -d bevy_version=\"git\""
 
       - name: Setup Rust rust-toolchain
         uses: actions-rs/toolchain@v1
@@ -128,3 +132,56 @@ jobs:
           mv $PROJECT_NAME ${{ runner.temp }}/
           cd ${{ runner.temp }}/$PROJECT_NAME
           cargo check
+
+  lib_plugin:
+    runs-on: ubuntu-latest
+    env:
+      PROJECT_NAME: mytemplate
+    steps:
+      - uses: actions/checkout@v2
+      - name: Expand template
+        uses: cargo-generate/cargo-generate-action@v0.11.0
+        with:
+          name: ${{ env.PROJECT_NAME }}
+          subfolder: lib-plugin
+
+      - name: Setup Rust rust-toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+
+      - name: Check expanded template
+        # we need to move the generated project to a temp folder, away from the template project
+        # otherwise `cargo` runs would fail
+        # see https://github.com/rust-lang/cargo/issues/9922
+        run: |
+          mv $PROJECT_NAME ${{ runner.temp }}/
+          cd ${{ runner.temp }}/$PROJECT_NAME
+          cargo check
+
+  lib_assets:
+    runs-on: ubuntu-latest
+    env:
+      PROJECT_NAME: mytemplate
+    steps:
+      - uses: actions/checkout@v2
+      - name: Expand template
+        uses: cargo-generate/cargo-generate-action@v0.11.0
+        with:
+          name: ${{ env.PROJECT_NAME }}
+          subfolder: lib-assets
+
+      - name: Setup Rust rust-toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+
+      - name: Check expanded template
+        # we need to move the generated project to a temp folder, away from the template project
+        # otherwise `cargo` runs would fail
+        # see https://github.com/rust-lang/cargo/issues/9922
+        run: |
+          mv $PROJECT_NAME ${{ runner.temp }}/
+          cd ${{ runner.temp }}/$PROJECT_NAME
+          cargo check
+
