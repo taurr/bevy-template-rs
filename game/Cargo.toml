@@ -1,5 +1,9 @@
+[workspace]
+resolver = "2"
+members = []
+
 [package]
-name = "{{crate_name}}"
+name = "{{project-name}}"
 version = "0.1.0"
 edition = "2021"
 authors = ["{{authors}}"]
@@ -7,41 +11,36 @@ readme = "README.md"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
-[build-dependencies]
-cargo-emit = "0.2"
-
 [dependencies]
 anyhow = "1.0"
 # See https://bevy-cheatbook.github.io/setup/bevy-config.html for features etc.
 bevy = { version = "0.6", features = [
     "jpeg",
     "serialize",{% if fast_compiles %}
-    "dynamic",{% endif %}
+    "dynamic",  # needed for fast-compile, together w. ".cargo/config.toml"{% endif %}
 ] }
+bevy-inspector-egui = { version = "0.7", optional = true }
+bevy_mod_debugdump = { version = "0.3", optional = true }
+
 # Other crates of possible interest:
-# parry2d / 3d
-# rapier2d / 3d
-# noise-rs
-# fastrand
-# ndarray
-# petgraph
 # derive_more
 # enum-iterator
 # itertools
+# fastrand
+# ndarray
 # serde
 # serde_derive
 # serde_json
-# chrono
+# bevy_kira_audio
+# parry2d / 3d
+# rapier2d / 3d
+# petgraph
+# noise-rs
 
 {% if bevy_version == "git" %}[patch.crates-io]
 bevy = { git = "https://github.com/bevyengine/bevy", branch = "main" }
-{% endif %}
-[profile.dev.package."*"]
-opt-level = 3
 
-[profile.release]
-lto = "fat"
-
-[features]
-write_graphs = []
-egui_inspector = []
+{% endif %}[features]
+default = []
+egui_inspector = [ "bevy-inspector-egui" ]
+write_graphs = [ "bevy_mod_debugdump" ]

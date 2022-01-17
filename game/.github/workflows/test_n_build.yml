@@ -1,0 +1,89 @@
+# For more inspiration, look here:
+# https://github.com/bevyengine/bevy/blob/main/.github/workflows/ci.yml
+
+name: Test & Build
+
+on:
+  #schedule:
+  #  - cron: '0 18 * * 5'
+  pull_request:
+  push:
+    branches-ignore:
+      - 'dependabot/**'
+      - staging-squash-merge.tmp
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  check:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        #os: [windows-latest, ubuntu-latest, macos-latest]
+        toolchain: [stable]
+        cargo-cmd:
+          - fmt --all -- --check
+          - clippy --all-targets --all-features -- -D warnings
+          - check --all-features
+        #exclude:
+        #  - os: macos-latest
+        #    toolchain: nightly
+        #  - os: windows-latest
+        #    toolchain: nightly
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          lfs: true
+      - name: Checkout LFS objects
+        run: git lfs checkout
+      - name: Setup | rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: ${{ matrix.toolchain }}
+          override: true
+          profile: minimal
+          components: clippy, rustfmt
+      - name: Setup | CI dependencies
+        run: sudo apt-get update; sudo apt-get install --no-install-recommends -y libasound2-dev libxcb-render0-dev libxcb-shape0-dev libxcb-xfixes0-dev libudev-dev
+        if: runner.os == 'linux'
+      - uses: Swatinem/rust-cache@v1
+      - run: cargo ${{ matrix['cargo-cmd'] }}
+
+  test:
+    needs: check
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        #os: [windows-latest, ubuntu-latest, macos-latest]
+        toolchain: [stable]
+        cargo-cmd:
+          - test
+        #exclude:
+        #  - os: macos-latest
+        #    toolchain: nightly
+        #  - os: windows-latest
+        #    toolchain: nightly
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          lfs: true
+      - name: Checkout LFS objects
+        run: git lfs checkout
+      - name: Setup | rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: ${{ matrix.toolchain }}
+          override: true
+          profile: minimal
+      - name: Setup | CI dependencies
+        run: sudo apt-get update; sudo apt-get install --no-install-recommends -y libasound2-dev libxcb-render0-dev libxcb-shape0-dev libxcb-xfixes0-dev libudev-dev
+        if: runner.os == 'linux'
+      - uses: Swatinem/rust-cache@v1
+      - run: cargo ${{ matrix['cargo-cmd'] }}

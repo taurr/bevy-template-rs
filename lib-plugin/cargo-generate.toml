@@ -1,0 +1,8 @@
+[template]
+cargo_generate_version = ">=0.10.0"
+
+[placeholders]
+github_username = { type = "string", prompt = "GitHub username:" }
+
+[hooks]
+post = ["final-msg.rhai"]

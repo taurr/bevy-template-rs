@@ -1,19 +1,20 @@
-pub mod asset_io;
-pub mod debug;
-
 use bevy::prelude::*;
 
 pub struct HelloPlugin;
 
-#[derive(Component)]
+#[derive(Component, Default, Reflect)]
+#[reflect(Component)]
 pub struct Person;
 
-#[derive(Component)]
+#[derive(Component, Default, Reflect)]
+#[reflect(Component)]
 pub struct Name(String);
 
 struct GreetTimer(Timer);
+
 impl Plugin for HelloPlugin {
     fn build(&self, app: &mut App) {
+        app.register_type::<Name>();
         app.insert_resource(GreetTimer(Timer::from_seconds(2.0, true)))
             .add_startup_system(add_people)
             .add_system(greet_people);

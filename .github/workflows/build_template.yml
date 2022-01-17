@@ -1,18 +1,16 @@
-name: Build Template
+name: Build & Test Template
 
 on:
-  # https://docs.github.com/en/actions/reference/events-that-trigger-workflows#workflow_dispatch
-  workflow_dispatch:
   schedule:
     - cron: '0 18 * * 5'
   push:
-    branches: [ '*' ]
-    paths-ignore:
-      - "**/docs/**"
-      - "**.md"
+    branches-ignore:
+      - 'dependabot/**'
+      - staging-squash-merge.tmp
 
 env:
   CARGO_TERM_COLOR: always
+  LATEST_BEVY: "0.6"
 
 jobs:
   latest_normal:
@@ -25,7 +23,7 @@ jobs:
         uses: cargo-generate/cargo-generate-action@v0.11.0
         with:
           name: ${{ env.PROJECT_NAME }}
-          other: "-d github_username=\"taurr\" -d fast_compiles=false -d bevy_version=\"latest (0.5)\""
+          other: "-d github_username=\"taurr\" -d fast_compiles=false -d bevy_version=${{ env.LATEST_BEVY }}"
 
       - name: Setup Rust rust-toolchain
         uses: actions-rs/toolchain@v1
@@ -83,7 +81,7 @@ jobs:
         uses: cargo-generate/cargo-generate-action@v0.11.0
         with:
           name: ${{ env.PROJECT_NAME }}
-          other: "-d github_username=\"taurr\" -d fast_compiles=true -d bevy_version=\"latest (0.5)\""
+          other: "-d github_username=\"taurr\" -d fast_compiles=true -d bevy_version=${{ env.LATEST_BEVY }}"
 
       - name: Setup Rust rust-toolchain
         uses: actions-rs/toolchain@v1

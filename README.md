@@ -1,13 +1,38 @@
-# bevy-template-rs
+# Bevy-template-rs
 
-This is a template for bootstraping binary or library projects using [Bevy].
+Here are a few `cargo-generate` templates for use when creating [bevy] applications.
 
-- Latest (0.6) [Bevy] version, or GitHub main version, are both supported.
+## Templates
+
+### Game
+
+This is a template for starting a new game.
+
+- Binary
+- Latest (0.6) [Bevy] version, or GitHub main version (as a patch), are both supported.
 - The template can optionally setup the project for using "fast compiles" as described in [The Bevy Book].
 - Basic GitHub workflow for building/testing the resulting project
-- Contains `assets` folder for your game assets
 - Code example for doing integration tests
 - VSCode launch configuration for executable/unit-tests and integration test
+- VSCode tasks
+
+### lib-plugin
+
+A simple template for creating a plugin with [Bevy].
+
+- Library
+- Code example for doing integration tests
+- VSCode launch configuration for debugging unit and integration tests
+- VSCode tasks
+
+### lib-assets
+
+A library for hosting embedded assets by utilizing the [Bevy-Embasset] crate.
+
+- Library
+- Assets folder for assets that should be embedded
+- VSCode launch configuration for debugging unit-tests
+- VSCode tasks
 
 ## Usage
 
@@ -45,5 +70,6 @@ cargo generate bevy
 ```
 
 [Bevy]:https://bevyengine.org
+[Bevy-Embasset]:https://github.com/taurr/bevy-embasset
 [cargo-generate]:https://github.com/cargo-generate/cargo-generate
 [The Bevy Book]:https://bevyengine.org/learn/book
