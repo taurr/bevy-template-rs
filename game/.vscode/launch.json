@@ -11,11 +11,11 @@
             "cargo": {
                 "args": [
                     "build",
-                    "--bin={{crate_name}}",
-                    "--package={{crate_name}}"
+                    "--bin={{project-name}}",
+                    "--package={{project-name}}"
                 ],
                 "filter": {
-                    "name": "{{crate_name}}",
+                    "name": "{{project-name}}",
                     "kind": "bin"
                 }
             },
@@ -31,7 +31,7 @@
                     "test",
                     "--no-run",
                     "--test=example_test",
-                    "--package={{crate_name}}"
+                    "--package={{project-name}}"
                 ],
                 "filter": {
                     "name": "example_test",
@@ -49,11 +49,11 @@
                 "args": [
                     "test",
                     "--no-run",
-                    "--bin={{crate_name}}",
-                    "--package={{crate_name}}"
+                    "--bin={{project-name}}",
+                    "--package={{project-name}}"
                 ],
                 "filter": {
-                    "name": "{{crate_name}}",
+                    "name": "{{project-name}}",
                     "kind": "bin"
                 }
             },
@@ -69,10 +69,10 @@
                     "test",
                     "--no-run",
                     "--lib",
-                    "--package={{crate_name}}"
+                    "--package={{project-name}}"
                 ],
                 "filter": {
-                    "name": "{{crate_name}}",
+                    "name": "{{project-name}}",
                     "kind": "lib"
                 }
             },
