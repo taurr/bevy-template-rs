@@ -1,3 +1,5 @@
+#[cfg(feature = "egui_inspector")]
+use bevy::ecs::query::{FilterFetch, WorldQuery};
 use bevy::prelude::*;
 #[cfg(feature = "egui_inspector")]
 use bevy_inspector_egui::{
@@ -18,6 +20,12 @@ impl Default for InspectorParams {
 pub trait BevyDebug {
     #[cfg(feature = "egui_inspector")]
     fn add_world_inspector(&mut self) -> &mut Self;
+
+    #[cfg(feature = "egui_inspector")]
+    fn add_filtered_world_inspector<F>(&mut self) -> &mut Self
+    where
+        F: WorldQuery + 'static,
+        F::Fetch: FilterFetch;
 
     #[cfg(feature = "egui_inspector")]
     fn add_inspector<T>(&mut self) -> &mut Self
@@ -53,11 +61,27 @@ fn toggle_world_inspector(
 
 impl BevyDebug for App {
     #[cfg(feature = "egui_inspector")]
+    #[allow(unused)]
     fn add_world_inspector(&mut self) -> &mut Self {
         let world = &mut self.world;
         world.get_resource_or_insert_with(InspectorParams::default);
 
         self.add_plugin(WorldInspectorPlugin::new());
+        self.add_system(toggle_world_inspector);
+        self
+    }
+
+    #[cfg(feature = "egui_inspector")]
+    #[allow(unused)]
+    fn add_filtered_world_inspector<F>(&mut self) -> &mut Self
+    where
+        F: WorldQuery + 'static,
+        F::Fetch: FilterFetch,
+    {
+        let world = &mut self.world;
+        world.get_resource_or_insert_with(InspectorParams::default);
+
+        self.add_plugin(WorldInspectorPlugin::new().filter::<F>());
         self.add_system(toggle_world_inspector);
         self
     }
