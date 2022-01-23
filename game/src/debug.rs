@@ -4,6 +4,17 @@ use bevy_inspector_egui::{
     plugin::InspectorWindows, Inspectable, InspectorPlugin, WorldInspectorPlugin,
 };
 
+#[derive(Debug)]
+pub struct InspectorParams {
+    pub key: KeyCode,
+}
+
+impl Default for InspectorParams {
+    fn default() -> Self {
+        Self { key: KeyCode::F12 }
+    }
+}
+
 pub trait BevyDebug {
     #[cfg(feature = "egui_inspector")]
     fn add_world_inspector(&mut self) -> &mut Self;
@@ -18,23 +29,36 @@ pub trait BevyDebug {
 }
 
 #[cfg(feature = "egui_inspector")]
-#[allow(unused)]
 fn toggle_inspector<T: Inspectable + 'static>(
     input: ResMut<Input<KeyCode>>,
+    inspector_params: Res<InspectorParams>,
     mut inspector_windows: ResMut<InspectorWindows>,
 ) {
-    use bevy_inspector_egui::plugin::InspectorWindows;
-
-    if input.just_pressed(KeyCode::F12) {
+    if input.just_pressed(inspector_params.key) {
         let mut inspector_window_data = inspector_windows.window_data_mut::<T>();
         inspector_window_data.visible = !inspector_window_data.visible;
+    }
+}
+
+#[cfg(feature = "egui_inspector")]
+fn toggle_world_inspector(
+    input: ResMut<Input<KeyCode>>,
+    inspector_params: Res<InspectorParams>,
+    mut world_params: ResMut<bevy_inspector_egui::WorldInspectorParams>,
+) {
+    if input.just_pressed(inspector_params.key) {
+        world_params.enabled = !world_params.enabled;
     }
 }
 
 impl BevyDebug for App {
     #[cfg(feature = "egui_inspector")]
     fn add_world_inspector(&mut self) -> &mut Self {
+        let world = &mut self.world;
+        world.get_resource_or_insert_with(InspectorParams::default);
+
         self.add_plugin(WorldInspectorPlugin::new());
+        self.add_system(toggle_world_inspector);
         self
     }
 
@@ -43,6 +67,9 @@ impl BevyDebug for App {
     where
         T: Send + Sync + FromWorld + Inspectable + 'static,
     {
+        let world = &mut self.world;
+        world.get_resource_or_insert_with(InspectorParams::default);
+
         self.add_plugin(InspectorPlugin::<T>::new());
         self.add_system(toggle_inspector::<T>);
         self
