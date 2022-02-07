@@ -19,7 +19,7 @@ bevy = { version = "0.6", features = [
     "serialize",{% if fast_compiles %}
     "dynamic",  # needed for fast-compile, together w. ".cargo/config.toml"{% endif %}
 ] }
-bevy-inspector-egui = { version = "0.7", optional = true }
+bevy-inspector-egui = { version = "0.8", optional = true }
 bevy_mod_debugdump = { version = "0.3", optional = true }
 
 # Other crates of possible interest:

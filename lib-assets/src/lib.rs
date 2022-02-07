@@ -1,6 +1,4 @@
-use bevy_embasset::embasset_assets;
-
-embasset_assets!(
+bevy_embasset::assets!(
     pub enum GameAssets {
         #[doc = "Example doc"]
         Icon = ".keepme"

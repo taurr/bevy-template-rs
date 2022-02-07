@@ -23,9 +23,11 @@
       "detail": "Runs all tests",
       "type": "shell",
       "command": "cargo test --workspace --all-features --no-fail-fast -- --nocapture",
-      "options": {"env": {
+      "options": {
+        "env": {
           "RUST_LOG": "debug"
-      }},
+        }
+      },
       "problemMatcher": ["$rustc"],
       "group": "build",
       "presentation": {
@@ -40,7 +42,7 @@
       "label": "Run release",
       "detail": "Runs binary in release mode",
       "type": "shell",
-      "command": "cargo run --release --bin {{crate_name}}",
+      "command": "cargo run --release --bin {{project-name}}",
       "problemMatcher": ["$rustc"],
       "group": "build",
       "presentation": {
@@ -92,8 +94,8 @@
         "echo": false,
         "reveal": "never",
         "panel": "shared",
-        "showReuseMessage": false,
+        "showReuseMessage": false
       }
-    },
+    }
   ]
 }

@@ -6,7 +6,7 @@ resolver = "2"
 
 [dependencies]
 bevy = { version = "0.6", default-features = false }
-bevy-embasset = "0.2"
+bevy-embasset = "0.3"
 
 paste = "1.0"
 strum = { version = "0.23", features = ["derive"] }
