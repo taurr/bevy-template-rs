@@ -1,3 +1,5 @@
+pub use bevy_embasset::EnumCount;
+
 bevy_embasset::assets!(
     pub enum GameAssets {
         #[doc = "Example doc"]
