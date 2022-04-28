@@ -3,8 +3,8 @@ mod debug;
 use anyhow::Result;
 use bevy::prelude::*;
 
-#[cfg(any(feature = "egui_inspector", feature = "write_graphs"))]
-use debug::BevyDebug;
+#[cfg(any(feature = "inspector", feature = "write_graphs"))]
+use debug::*;
 
 use {{crate_name}}::HelloPlugin;
 
@@ -18,14 +18,14 @@ fn main() -> Result<()> {
             height: 600.,
             resizable: false,
             scale_factor_override: Some(1.0),
-            ..Default::default()
+            ..default()
         })
         .add_plugin(HelloPlugin)
         .add_plugins(DefaultPlugins);
 
-    #[cfg(feature = "egui_inspector")]
+    #[cfg(feature = "inspector")]
     app.add_world_inspector()
-        .add_inspector::<bevy_inspector_egui::widgets::InspectorQuery<Entity, With<{{crate_name}}::Person>>>();
+        .add_inspector::<InspectorQuery<Entity, With<{{crate_name}}::Person>>>();
 
     #[cfg(feature = "write_graphs")]
     app.write_graphs()?;

@@ -10,7 +10,7 @@ resolver = "2"
 
 [dependencies]
 # See https://bevy-cheatbook.github.io/setup/bevy-config.html for features etc.
-bevy = { version = "0.6", default-features = false, features = [] }
+bevy = { version = "0.7", default-features = false, features = [] }
 
 # Other crates of possible interest:
 # derive_more

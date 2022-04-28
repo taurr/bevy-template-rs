@@ -4,7 +4,7 @@ cargo_generate_version = ">=0.10.0"
 [placeholders]
 fast_compiles = { type = "bool", prompt = "Enable fast compiles for debug? (note: debug in vscode does not work!)" }
 bevy_version = { type = "string", prompt = "Bevy version?", choices = [
-    "0.6",
+    "0.7",
     "git",
 ] }
 

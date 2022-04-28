@@ -14,13 +14,13 @@ readme = "README.md"
 [dependencies]
 anyhow = "1.0"
 # See https://bevy-cheatbook.github.io/setup/bevy-config.html for features etc.
-bevy = { version = "0.6", features = [
+bevy = { version = "0.7", features = [
     "jpeg",
     "serialize",{% if fast_compiles %}
     "dynamic",  # needed for fast-compile, together w. ".cargo/config.toml"{% endif %}
 ] }
-bevy-inspector-egui = { version = "0.8", optional = true }
-bevy_mod_debugdump = { version = "0.3", optional = true }
+bevy-inspector-egui = { version = "0.10", optional = true }
+bevy_mod_debugdump = { version = "0.4", optional = true }
 
 # Other crates of possible interest:
 # derive_more
@@ -42,7 +42,7 @@ bevy = { git = "https://github.com/bevyengine/bevy", branch = "main" }
 
 {% endif %}[features]
 default = []
-egui_inspector = [ "bevy-inspector-egui" ]
+inspector = [ "bevy-inspector-egui" ]
 write_graphs = [ "bevy_mod_debugdump" ]
 
 # Enable only a small amount of optimization in debug mode
