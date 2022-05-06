@@ -19,6 +19,21 @@
       }
     },
     {
+      "label": "Build",
+      "detail": "Make a debug build",
+      "type": "shell",
+      "command": "cargo build",
+      "problemMatcher": ["$rustc"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": true
+      }
+    },
+    {
       "label": "Test",
       "detail": "Runs all tests",
       "type": "shell",

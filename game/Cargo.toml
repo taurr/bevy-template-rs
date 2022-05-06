@@ -31,6 +31,7 @@ bevy_mod_debugdump = { version = "0.4", optional = true }
 # serde
 # serde_derive
 # serde_json
+# bevy_tweening
 # bevy_kira_audio
 # parry2d / 3d
 # rapier2d / 3d

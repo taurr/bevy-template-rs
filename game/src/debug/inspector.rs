@@ -33,7 +33,12 @@ impl Default for InspectorParams {
 impl Inspector for App {
     fn add_world_inspector(&mut self) -> &mut Self {
         let world = &mut self.world;
-        world.get_resource_or_insert_with(InspectorParams::default);
+        world
+            .get_resource_or_insert_with(|| WorldInspectorParams {
+                enabled: false,
+                ..Default::default()
+            })
+            .get_resource_or_insert_with(InspectorParams::default);
 
         self.add_plugin(WorldInspectorPlugin::new());
         self.add_system(toggle_world_inspector);
@@ -46,7 +51,12 @@ impl Inspector for App {
         F::Fetch: FilterFetch,
     {
         let world = &mut self.world;
-        world.get_resource_or_insert_with(InspectorParams::default);
+        world
+            .get_resource_or_insert_with(|| WorldInspectorParams {
+                enabled: false,
+                ..Default::default()
+            })
+            .get_resource_or_insert_with(InspectorParams::default);
 
         self.add_plugin(WorldInspectorPlugin::new().filter::<F>());
         self.add_system(toggle_world_inspector);
@@ -58,7 +68,12 @@ impl Inspector for App {
         T: Send + Sync + FromWorld + Inspectable + 'static,
     {
         let world = &mut self.world;
-        world.get_resource_or_insert_with(InspectorParams::default);
+        world
+            .get_resource_or_insert_with(|| WorldInspectorParams {
+                enabled: false,
+                ..Default::default()
+            })
+            .get_resource_or_insert_with(InspectorParams::default);
 
         self.add_plugin(InspectorPlugin::<T>::new());
         self.add_system(toggle_inspector::<T>);

@@ -1,35 +1,34 @@
-mod debug;
-
 use anyhow::Result;
-use bevy::prelude::*;
+use bevy::{prelude::*, window::PresentMode};
 
-#[cfg(any(feature = "inspector", feature = "write_graphs"))]
-use debug::*;
+mod debug;
 
 use {{crate_name}}::HelloPlugin;
 
+const HEIGHT: f32 = 900.0;
+const RESOLUTION: f32 = 16.0/9.0;
+const BACKGROUND: Color = Color::rgb(0.1, 0.1, 0.1);
+
 fn main() -> Result<()> {
     let mut app = App::new();
-    app.insert_resource(ClearColor(Color::rgb(0.039, 0.055, 0.078)))
+    app.insert_resource(ClearColor(BACKGROUND))
         .insert_resource(WindowDescriptor {
-            title: "Example window".into(),
+            title: format!("{} - v{}", env!("CARGO_PKG_NAME"), env!("CARGO_PKG_VERSION")),
+            width: HEIGHT * RESOLUTION,
+            height: HEIGHT,
             mode: bevy::window::WindowMode::Windowed,
-            width: 800.,
-            height: 600.,
+            present_mode: PresentMode::Fifo,
             resizable: false,
-            scale_factor_override: Some(1.0),
             ..default()
         })
+        .add_plugins(DefaultPlugins)
+        .add_plugins(debug::DebugPlugins)
         .add_plugin(HelloPlugin)
-        .add_plugins(DefaultPlugins);
-
-    #[cfg(feature = "inspector")]
-    app.add_world_inspector()
-        .add_inspector::<InspectorQuery<Entity, With<{{crate_name}}::Person>>>();
-
-    #[cfg(feature = "write_graphs")]
-    app.write_graphs()?;
-
-    app.run();
+        .add_startup_system(setup)
+        .run();
     Ok(())
+}
+
+fn setup(mut commands: Commands) {
+    commands.spawn_bundle(OrthographicCameraBundle::new_2d());
 }

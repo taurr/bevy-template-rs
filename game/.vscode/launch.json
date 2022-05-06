@@ -8,6 +8,7 @@
             "type": "lldb",
             "request": "launch",
             "name": "Debug executable '{{project-name}}'",
+            "preLaunchTask": "link_assets",
             "cargo": {
                 "args": [
                     "build",
@@ -26,6 +27,7 @@
             "type": "lldb",
             "request": "launch",
             "name": "Debug integration test 'example_test'",
+            "preLaunchTask": "link_assets",
             "cargo": {
                 "args": [
                     "test",
@@ -45,6 +47,7 @@
             "type": "lldb",
             "request": "launch",
             "name": "Debug unit tests in executable '{{project-name}}'",
+            "preLaunchTask": "link_assets",
             "cargo": {
                 "args": [
                     "test",
@@ -64,6 +67,7 @@
             "type": "lldb",
             "request": "launch",
             "name": "Debug unit tests in library '{{project-name}}'",
+            "preLaunchTask": "link_assets",
             "cargo": {
                 "args": [
                     "test",
