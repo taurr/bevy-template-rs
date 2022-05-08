@@ -83,6 +83,21 @@
       }
     },
     {
+      "label": "Run release w. editor",
+      "detail": "Runs binary in release mode, with editor enabled",
+      "type": "shell",
+      "command": "cargo run --features editor --release --bin {{project-name}}",
+      "problemMatcher": ["$rustc"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": true
+      }
+    },
+    {
       "label": "Update",
       "detail": "Update dependencies (Cargo.lock)",
       "type": "shell",

@@ -1,5 +1,5 @@
 use anyhow::Result;
-use bevy::{prelude::*, window::PresentMode};
+use bevy::{prelude::*, window::{PresentMode, WindowMode}};
 
 mod debug;
 
@@ -16,7 +16,7 @@ fn main() -> Result<()> {
             title: format!("{} - v{}", env!("CARGO_PKG_NAME"), env!("CARGO_PKG_VERSION")),
             width: HEIGHT * RESOLUTION,
             height: HEIGHT,
-            mode: bevy::window::WindowMode::Windowed,
+            mode: WindowMode::Windowed,
             present_mode: PresentMode::Fifo,
             resizable: false,
             ..default()
