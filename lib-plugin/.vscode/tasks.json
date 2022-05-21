@@ -4,12 +4,31 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "Test",
+      "detail": "Runs all tests",
+      "type": "shell",
+      "command": "cargo t --workspace --all-features --no-fail-fast -- --nocapture",
+      "options": {
+        "env": {
+          "RUST_LOG": "debug"
+        }
+      },
+      "problemMatcher": ["$rustc"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": true
+      }
+    },
+    {
       "label": "Check",
       "detail": "Run a compile check",
       "type": "shell",
       "command": "cargo check --all-features --all-targets",
       "problemMatcher": ["$rustc"],
-      "group": "build",
       "presentation": {
         "echo": true,
         "reveal": "always",
@@ -24,25 +43,6 @@
       "type": "shell",
       "command": "cargo build",
       "problemMatcher": ["$rustc"],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "panel": "shared",
-        "showReuseMessage": true,
-        "clear": true
-      }
-    },
-    {
-      "label": "Test",
-      "detail": "Runs all tests",
-      "type": "shell",
-      "command": "cargo test --workspace --all-features --no-fail-fast -- --nocapture",
-      "options": {"env": {
-          "RUST_LOG": "debug"
-      }},
-      "problemMatcher": ["$rustc"],
-      "group": "build",
       "presentation": {
         "echo": true,
         "reveal": "always",
@@ -57,7 +57,6 @@
       "type": "shell",
       "command": "cargo update",
       "problemMatcher": [],
-      "group": "build",
       "presentation": {
         "echo": true,
         "reveal": "always",
@@ -72,7 +71,6 @@
       "type": "shell",
       "command": "cargo clippy --all-features --all-targets -- -D warnings",
       "problemMatcher": [],
-      "group": "build",
       "presentation": {
         "echo": true,
         "reveal": "always",
@@ -87,13 +85,12 @@
       "type": "shell",
       "command": "cargo fmt --all --quiet",
       "problemMatcher": [],
-      "group": "build",
       "presentation": {
         "echo": false,
         "reveal": "never",
         "panel": "shared",
-        "showReuseMessage": false,
+        "showReuseMessage": false
       }
-    },
+    }
   ]
 }
