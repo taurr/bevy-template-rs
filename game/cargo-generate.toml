@@ -2,14 +2,19 @@
 cargo_generate_version = ">=0.10.0"
 
 [placeholders]
-fast_compiles = { type = "bool", prompt = "Enable fast compiles for debug? (note: debug in vscode does not work!)" }
-bevy_version = { type = "string", prompt = "Bevy version?", choices = [
-    "0.7",
-    "git",
-] }
+fast_compiles = { type = "bool", prompt = "Enable fast compiles for debug? (note: debug in vscode does not work!)", default = false }
+bevy_git = { type = "bool", prompt = "Use git version of Bevy?", default = false }
+camera = { type = "string", prompt = "Camera type?", choices = [
+    "2D",
+    "3D",
+    "None",
+], default = "2D" }
 
 [hooks]
 post = ["final-msg.rhai"]
 
 [conditional.'fast_compiles == false']
-ignore = [ "rust-toolchain.toml", ".cargo" ]
+ignore = ["rust-toolchain.toml", ".cargo"]
+
+[conditional.'camera != "3D"']
+ignore = ["assets/cube.glb"]

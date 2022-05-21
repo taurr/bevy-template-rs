@@ -38,7 +38,7 @@ bevy_editor_pls = { git = "https://github.com/jakobhellermann/bevy_editor_pls", 
 # petgraph
 # noise-rs
 
-{% if bevy_version == "git" %}[patch.crates-io]
+{% if bevy_git %}[patch.crates-io]
 bevy = { git = "https://github.com/bevyengine/bevy", branch = "main" }
 
 {% endif %}[features]
