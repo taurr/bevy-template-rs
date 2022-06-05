@@ -7,11 +7,9 @@
       "label": "Test",
       "detail": "Runs all tests",
       "type": "shell",
-      "command": "cargo t --workspace --all-features --no-fail-fast -- --nocapture",
-      "options": {
-        "env": {
-          "RUST_LOG": "debug"
-        }
+      "command": "cargo t",
+      "linux": {
+        "command": "cargo t --features bevy/dynamic"
       },
       "problemMatcher": ["$rustc"],
       "group": "build",
@@ -20,12 +18,37 @@
         "reveal": "always",
         "panel": "shared",
         "showReuseMessage": true,
+        "clear": true,
+        "focus": true
+      }
+    },
+    {
+      "label": "Open doc",
+      "detail": "Open the documentation",
+      "type": "shell",
+      "command": "cargo doc --open",
+      "problemMatcher": ["$rustc"],
+      "dependsOn": "Build doc"
+    },
+    {
+      "label": "Build doc",
+      "detail": "Builds the documentation",
+      "type": "shell",
+      "command": "cargo doc",
+      "problemMatcher": ["$rustc"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "panel": "shared",
+        "showReuseMessage": true,
+        "focus": true,
         "clear": true
       }
     },
     {
-      "label": "Check",
-      "detail": "Run a compile check",
+      "label": "Check all-features",
+      "detail": "Run a compile check against all features",
       "type": "shell",
       "command": "cargo check --all-features --all-targets",
       "problemMatcher": ["$rustc"],
@@ -34,21 +57,23 @@
         "reveal": "always",
         "panel": "shared",
         "showReuseMessage": true,
-        "clear": true
+        "clear": true,
+        "focus": true
       }
     },
     {
-      "label": "Build",
-      "detail": "Make a debug build",
+      "label": "Build release",
+      "detail": "Make a release build",
       "type": "shell",
-      "command": "cargo build",
+      "command": "cargo build --release",
       "problemMatcher": ["$rustc"],
       "presentation": {
         "echo": true,
         "reveal": "always",
         "panel": "shared",
         "showReuseMessage": true,
-        "clear": true
+        "clear": true,
+        "focus": true
       }
     },
     {
@@ -62,7 +87,8 @@
         "reveal": "always",
         "panel": "shared",
         "showReuseMessage": true,
-        "clear": true
+        "clear": true,
+        "focus": true
       }
     },
     {
@@ -76,7 +102,8 @@
         "reveal": "always",
         "panel": "shared",
         "showReuseMessage": true,
-        "clear": true
+        "clear": true,
+        "focus": true
       }
     },
     {

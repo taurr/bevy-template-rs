@@ -7,22 +7,9 @@
     {
       "type": "lldb",
       "request": "launch",
-      "name": "Debug executable '{{project-name}}'",
+      "name": "Debug unit tests in crate '{{project-name}}'",
       "cargo": {
-        "args": ["build", "--bin={{project-name}}"]
-      },
-      "args": [],
-      "env": {
-        "CARGO_MANIFEST_DIR": "${workspaceFolder}"
-      },
-      "cwd": "${workspaceFolder}"
-    },
-    {
-      "type": "lldb",
-      "request": "launch",
-      "name": "Debug unit tests in executable '{{project-name}}'",
-      "cargo": {
-        "args": ["test", "--no-run", "--bin={{project-name}}"]
+        "args": ["test", "--no-run", "--lib", "--package={{crate_name}}"]
       },
       "args": [],
       "env": {

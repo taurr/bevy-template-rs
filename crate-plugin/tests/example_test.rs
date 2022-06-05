@@ -1,5 +1,7 @@
 use bevy::prelude::*;
 
+mod common;
+
 #[derive(Component, Default)]
 struct Enemy {
     hit_points: u32,
@@ -21,21 +23,18 @@ fn hurt_enemies(mut enemies: Query<&mut Enemy>) {
 
 #[test]
 fn did_hurt_enemy() {
-    // Setup world
-    let mut world = World::default();
+    let mut app = common::minimal_bevy_app();
 
-    // Setup stage with our two systems
-    let mut update_stage = SystemStage::parallel();
-    update_stage.add_system(despawn_dead_enemies);
-    update_stage.add_system(hurt_enemies.before(despawn_dead_enemies));
+    app.add_system(despawn_dead_enemies)
+        .add_system(hurt_enemies.before(despawn_dead_enemies));
 
     // Setup test entities
-    let enemy_id = world.spawn().insert(Enemy { hit_points: 5 }).id();
+    let enemy_id = app.world.spawn().insert(Enemy { hit_points: 5 }).id();
 
-    // Run systems
-    update_stage.run(&mut world);
+    // spin Bevy a few times...
+    (0..1).for_each(|_| app.update());
 
     // Check resulting changes
-    assert!(world.get::<Enemy>(enemy_id).is_some());
-    assert_eq!(world.get::<Enemy>(enemy_id).unwrap().hit_points, 4);
+    assert!(app.world.get::<Enemy>(enemy_id).is_some());
+    assert_eq!(app.world.get::<Enemy>(enemy_id).unwrap().hit_points, 4);
 }

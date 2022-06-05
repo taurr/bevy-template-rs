@@ -4,14 +4,30 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "Check all-features",
+      "detail": "Run a compile check against all features",
+      "type": "shell",
+      "command": "cargo check --all-features --all-targets",
+      "linux": {
+        "command": "cargo check --features bevy/dynamic --all-features --all-targets"
+      },
+      "problemMatcher": ["$rustc"],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": true,
+        "focus": true
+      }
+    },
+    {
       "label": "Test",
       "detail": "Runs all tests",
       "type": "shell",
-      "command": "cargo t --workspace --all-features --no-fail-fast -- --nocapture",
-      "options": {
-        "env": {
-          "RUST_LOG": "debug"
-        }
+      "command": "cargo t",
+      "linux": {
+        "command": "cargo t --features bevy/dynamic"
       },
       "problemMatcher": ["$rustc"],
       "group": "build",
@@ -20,7 +36,26 @@
         "reveal": "always",
         "panel": "shared",
         "showReuseMessage": true,
-        "clear": true
+        "clear": true,
+        "focus": true
+      }
+    },
+    {
+      "label": "Build release",
+      "detail": "Make a release build",
+      "type": "shell",
+      "command": "cargo build --release",
+      "linux": {
+        "command": "cargo build --features bevy/dynamic --release"
+      },
+      "problemMatcher": ["$rustc"],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": true,
+        "focus": true
       }
     },
     {
@@ -28,6 +63,9 @@
       "detail": "Runs binary in release mode",
       "type": "shell",
       "command": "cargo run --release --bin {{project-name}}",
+      "linux": {
+        "command": "cargo run --features bevy/dynamic --release --bin {{project-name}}"
+      },
       "problemMatcher": ["$rustc"],
       "group": "build",
       "presentation": {
@@ -35,7 +73,8 @@
         "reveal": "always",
         "panel": "shared",
         "showReuseMessage": true,
-        "clear": true
+        "clear": true,
+        "focus": true
       }
     },
     {
@@ -43,6 +82,9 @@
       "detail": "Runs binary in release mode, with editor enabled",
       "type": "shell",
       "command": "cargo run --features editor --release --bin {{project-name}}",
+      "linux": {
+        "command": "cargo run --features bevy/dynamic --features editor --release --bin {{project-name}}"
+      },
       "problemMatcher": ["$rustc"],
       "group": "build",
       "presentation": {
@@ -50,48 +92,8 @@
         "reveal": "always",
         "panel": "shared",
         "showReuseMessage": true,
-        "clear": true
-      }
-    },
-    {
-      "label": "link_assets",
-      "type": "shell",
-      "windows": {},
-      "linux": {
-        "command": "ln -s ${workspaceFolder}/assets ${workspaceFolder}/target/debug/assets|true"
-      },
-      "problemMatcher": [],
-      "presentation": {
-        "echo": false,
-        "reveal": "never"
-      }
-    },
-    {
-      "label": "Check",
-      "detail": "Run a compile check",
-      "type": "shell",
-      "command": "cargo check --all-features --all-targets",
-      "problemMatcher": ["$rustc"],
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "panel": "shared",
-        "showReuseMessage": true,
-        "clear": true
-      }
-    },
-    {
-      "label": "Build",
-      "detail": "Make a debug build",
-      "type": "shell",
-      "command": "cargo build",
-      "problemMatcher": ["$rustc"],
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "panel": "shared",
-        "showReuseMessage": true,
-        "clear": true
+        "clear": true,
+        "focus": true
       }
     },
     {
@@ -105,7 +107,8 @@
         "reveal": "always",
         "panel": "shared",
         "showReuseMessage": true,
-        "clear": true
+        "clear": true,
+        "focus": true
       }
     },
     {
@@ -119,7 +122,8 @@
         "reveal": "always",
         "panel": "shared",
         "showReuseMessage": true,
-        "clear": true
+        "clear": true,
+        "focus": true
       }
     },
     {

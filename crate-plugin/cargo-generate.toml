@@ -3,14 +3,6 @@ cargo_generate_version = ">=0.10.0"
 
 [placeholders]
 bevy_git = { type = "bool", prompt = "Use git version of Bevy?", default = false }
-camera = { type = "string", prompt = "Camera type?", choices = [
-    "2D",
-    "3D",
-    "None",
-], default = "2D" }
 
 [hooks]
 post = ["final-msg.rhai"]
-
-[conditional.'camera != "3D"']
-ignore = ["assets/cube.glb"]

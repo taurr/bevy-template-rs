@@ -1,12 +1,10 @@
 use anyhow::Result;
-use bevy::{prelude::*, window::{PresentMode, WindowMode}};
+use bevy::{prelude::*, window::WindowMode};
 
 mod debug;
 
-use {{crate_name}}::HelloPlugin;
-
 const HEIGHT: f32 = 900.0;
-const RESOLUTION: f32 = 16.0/9.0;
+const ASPECT_RATIO: f32 = 16.0/9.0;
 const BACKGROUND: Color = Color::rgb(0.1, 0.1, 0.1);
 
 fn main() -> Result<()> {
@@ -17,10 +15,9 @@ fn main() -> Result<()> {
                 env!("CARGO_PKG_NAME"),
                 env!("CARGO_PKG_VERSION")
             ),
-            width: HEIGHT * RESOLUTION,
+            width: HEIGHT * ASPECT_RATIO,
             height: HEIGHT,
             mode: WindowMode::Windowed,
-            present_mode: PresentMode::Fifo,
             resizable: false,
             ..default()
         })
@@ -30,8 +27,7 @@ fn main() -> Result<()> {
             brightness: 0.2,
         }){% endif %}
         .add_plugins(DefaultPlugins)
-        .add_plugins(debug::DebugPlugins)
-        .add_plugin(HelloPlugin){% if camera!="None" %}
+        .add_plugins(debug::DebugPlugins){% if camera!="None" %}
         .add_startup_system(setup){% endif %}
         .run();
     Ok(())
@@ -42,7 +38,6 @@ fn setup(mut commands: Commands{% if camera == "3D" %}, asset_server: Res<AssetS
         transform: Transform::from_xyz(4., 2., -4.0).looking_at(Vec3::new(0.0, 0.0, 0.0), Vec3::Y),
         ..default()
     });
-
     commands
         .spawn_bundle(TransformBundle::default())
         .insert(Name::new("Scene"))
