@@ -23,25 +23,16 @@ bevy = { version = "0.7", default-features = false, features = [] }
 bevy = "0.7.0"
 
 # Other crates of possible interest:
-# iyes_loopless = "0.5.1"
-# bevy_common_assets = { version = "0.2.0", features = ["ron"] }
+# bevy-atlas-loader
+# iyes_loopless
 # ron = "0.7.0"
 # strum
 # derive_more
 # enum_default
-# itertools
-# serde
-# serde_derive
-# serde_json
-# fastrand
-# ndarray
 # bevy_tweening
 # bevy_kira_audio
 # parry2d / 3d
 # rapier2d / 3d
-# petgraph
-# noise-rs
-# indoc
 
 {% if bevy_git %}[patch.crates-io]
 bevy = { git = "https://github.com/bevyengine/bevy", branch = "main" }

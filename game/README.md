@@ -4,9 +4,8 @@
 
 TODO: Write this readme
 
-This project uses [Bevy], and was bootstrapped using [bevy-template.rs].
-
-To enable the e-gui inspector, go into 'Cargo.toml' and enable the feature 'editor'
+---
+*This project uses [Bevy], and was bootstrapped using [bevy-template.rs].*
 
 [Bevy]:https://bevyengine.org
 [bevy-template.rs]:https://github.com/taurr/bevy-template-rs
