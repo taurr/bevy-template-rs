@@ -6,3 +6,15 @@ bevy_git = { type = "bool", prompt = "Use git version of Bevy?", default = false
 
 [hooks]
 post = ["final-msg.rhai"]
+
+[conditional.within_cargo_project]
+ignore = [
+    ".github",
+    ".vscode",
+    ".gitignore",
+    "CHANGELOG.md",
+    "CODE_OF_CONDUCT.md",
+    "CONTRIBUTING.md",
+    "LICENSE-APACHE",
+    "LICENSE-MIT",
+]

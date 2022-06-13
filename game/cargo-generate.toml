@@ -14,3 +14,15 @@ post = ["final-msg.rhai"]
 
 [conditional.'camera != "3D"']
 ignore = ["assets/cube.glb"]
+
+[conditional.within_cargo_project]
+ignore = [
+    ".github",
+    ".vscode",
+    ".gitignore",
+    "CHANGELOG.md",
+    "CODE_OF_CONDUCT.md",
+    "CONTRIBUTING.md",
+    "LICENSE-APACHE",
+    "LICENSE-MIT",
+]
