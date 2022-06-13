@@ -1,8 +1,8 @@
-[workspace]
+{% if within_cargo_project==false %}[workspace]
 resolver = "2"
 members = []
 
-[package]
+{% endif %}[package]
 name = "{{project-name}}"
 version = "0.1.0"
 authors = ["{{authors}}"]
@@ -11,12 +11,12 @@ description = """
 Short description goes here.
 """
 license = "MIT OR Apache-2.0"
-repository = "https://github.com/USERNAME/{{project-name}}"
+{% if within_cargo_project==false %}repository = "https://github.com/USERNAME/{{project-name}}"
 documentation = "https://docs.rs/{{project-name}}"
 keywords = []
 categories = []
-edition = "2021"
-#resolver = "2"
+{% endif %}edition = "2021"{% if within_cargo_project %}
+resolver = "2"{% endif %}
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
@@ -27,13 +27,13 @@ anyhow = "1.0"
 {% endif %}
 [dev-dependencies]
 {% if crate_type == "lib" %}bevy = { version = "0.7", features = [] }{% endif %}
-{% if bevy_git %}[patch.crates-io]
-bevy = { git = "https://github.com/bevyengine/bevy", branch = "main" }
-
-{% endif %}[features]
+{% if within_cargo_project==false %}#[patch.crates-io]
+#bevy = { git = "https://github.com/bevyengine/bevy", branch = "main" }
+{% endif %}
+[features]
 default = []{% if crate_type != "lib" %}
 editor = [ "bevy_editor_pls" ]{% endif %}
-
+{% if within_cargo_project==false %}
 # Enable only a small amount of optimization in debug mode
 [profile.dev]
 opt-level = 1
@@ -44,3 +44,4 @@ opt-level = 3
 
 [profile.release]
 lto = "thin"
+{% endif %}

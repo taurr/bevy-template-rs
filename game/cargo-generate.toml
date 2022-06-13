@@ -1,8 +1,7 @@
 [template]
-cargo_generate_version = ">=0.14.0"
+cargo_generate_version = ">0.14.0"
 
 [placeholders]
-bevy_git = { type = "bool", prompt = "Use git version of Bevy?", default = false }
 
 [hooks]
 post = ["final-msg.rhai"]
@@ -22,3 +21,18 @@ camera = { type = "string", prompt = "Camera type?", choices = [
 
 [conditional.'camera != "3D"']
 ignore = ["assets/cube.glb"]
+
+[conditional.'within_cargo_project != true'.placeholders]
+github_setup = { type = "bool", prompt = "Include GitHub additional files?", default=false }
+
+[conditional.within_cargo_project]
+ignore = [
+    ".github",
+    ".vscode",
+    ".gitignore",
+    "CHANGELOG.md",
+    "CODE_OF_CONDUCT.md",
+    "CONTRIBUTING.md",
+    "LICENSE-APACHE",
+    "LICENSE-MIT",
+]

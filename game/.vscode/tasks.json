@@ -7,9 +7,9 @@
       "label": "Test",
       "detail": "Runs all tests",
       "type": "shell",
-      "command": "cargo t",
+      "command": "cargo t --workspace",
       "linux": {
-        "command": "cargo t --features bevy/dynamic"
+        "command": "cargo t --workspace --features bevy/dynamic"
       },
       "problemMatcher": ["$rustc"],
       "group": "build",
@@ -21,14 +21,14 @@
         "clear": true,
         "focus": true
       }
-    },{% if crate_type == "lib" %}
+    },
     {
       "label": "Build release",
       "detail": "Make a release build",
       "type": "shell",
       "command": "cargo build --release",
-      "problemMatcher": ["$rustc"],
-      "group": "build",
+      "problemMatcher": ["$rustc"],{% if crate_type == "lib" %}
+      "group": "build",{% endif %}
       "presentation": {
         "echo": true,
         "reveal": "always",
@@ -50,8 +50,8 @@
       "detail": "Builds the documentation",
       "type": "shell",
       "command": "cargo doc",
-      "problemMatcher": ["$rustc"],
-      "group": "build",
+      "problemMatcher": ["$rustc"],{% if crate_type == "lib" %}
+      "group": "build",{% endif %}
       "presentation": {
         "echo": true,
         "reveal": "always",
@@ -60,7 +60,7 @@
         "focus": true,
         "clear": true
       }
-    },{% endif %}
+    },
     {
       "label": "Check all-features",
       "detail": "Run a compile check against all features",
@@ -69,21 +69,6 @@
       "linux": {
         "command": "cargo check --features bevy/dynamic --all-features --all-targets"
       },
-      "problemMatcher": ["$rustc"],
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "panel": "shared",
-        "showReuseMessage": true,
-        "clear": true,
-        "focus": true
-      }
-    },
-    {
-      "label": "Build release",
-      "detail": "Make a release build",
-      "type": "shell",
-      "command": "cargo build --release",
       "problemMatcher": ["$rustc"],
       "presentation": {
         "echo": true,
