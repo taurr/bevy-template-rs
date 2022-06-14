@@ -1,8 +1,6 @@
 use anyhow::Result;
 use bevy::{prelude::*, window::WindowMode};
 
-mod debug;
-
 const HEIGHT: f32 = 900.0;
 const ASPECT_RATIO: f32 = 16.0/9.0;
 const BACKGROUND: Color = Color::rgb(0.1, 0.1, 0.1);
@@ -27,12 +25,12 @@ fn main() -> Result<()> {
             brightness: 0.2,
         }){% endif %}
         .add_plugins(DefaultPlugins)
-        .add_plugins(debug::DebugPlugins){% if camera!="None" %}
-        .add_startup_system(setup){% endif %}
+        .add_plugins(DebugPlugins)
+        .add_startup_system(setup)
         .run();
     Ok(())
 }
-{% if camera != "None" %}
+
 fn setup(mut commands: Commands{% if camera == "3D" %}, asset_server: Res<AssetServer>{% endif %}) {
     {% if camera=="3D" %}commands.spawn_bundle(PerspectiveCameraBundle {
         transform: Transform::from_xyz(4., 2., -4.0).looking_at(Vec3::new(0.0, 0.0, 0.0), Vec3::Y),
@@ -44,4 +42,21 @@ fn setup(mut commands: Commands{% if camera == "3D" %}, asset_server: Res<AssetS
         .with_children(|b| {
             b.spawn_scene(asset_server.load("cube.glb#Scene0"));
         });{% else %}commands.spawn_bundle(OrthographicCameraBundle::new_2d());{% endif %}
-}{% endif %}
+}
+
+struct DebugPlugins;
+
+impl PluginGroup for DebugPlugins {
+    #[cfg(feature = "editor")]
+    fn build(&mut self, #[allow(unused)] group: &mut bevy::app::PluginGroupBuilder) {
+        use bevy_editor_pls::EditorPlugin;
+        group
+            .add(EditorPlugin)
+            .add(bevy::diagnostic::FrameTimeDiagnosticsPlugin)
+            .add(bevy::diagnostic::EntityCountDiagnosticsPlugin);
+    }
+
+    #[cfg(not(feature = "editor"))]
+    fn build(&mut self, _: &mut bevy::app::PluginGroupBuilder) {
+    }
+}
