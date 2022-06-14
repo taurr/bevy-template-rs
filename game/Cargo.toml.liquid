@@ -20,6 +20,9 @@ resolver = "2"{% endif %}
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+# Other crates of possible interest:
+# https://bevyengine.org/assets/#assets
+# https://gist.github.com/taurr/962ceb49472993e3092e97b07339c164
 {% if crate_type == "lib" %}bevy = { version = "0.7", default-features = false, features = [] }
 {% else %}bevy = { version = "0.7", features = [] }
 bevy_editor_pls = { git = "https://github.com/jakobhellermann/bevy_editor_pls", optional = true }
