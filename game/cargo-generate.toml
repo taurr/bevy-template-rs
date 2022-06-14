@@ -1,16 +1,24 @@
 [template]
-cargo_generate_version = ">=0.10.0"
+cargo_generate_version = ">=0.14.0"
 
 [placeholders]
 bevy_git = { type = "bool", prompt = "Use git version of Bevy?", default = false }
+
+[hooks]
+post = ["final-msg.rhai"]
+
+[conditional.'crate_type == "lib"']
+ignore = ["src/main.rs", "assets"]
+
+[conditional.'crate_type != "lib"']
+ignore = ["src/lib.rs", "tests"]
+
+[conditional.'crate_type != "lib"'.placeholders]
 camera = { type = "string", prompt = "Camera type?", choices = [
     "2D",
     "3D",
     "None",
 ], default = "2D" }
-
-[hooks]
-post = ["final-msg.rhai"]
 
 [conditional.'camera != "3D"']
 ignore = ["assets/cube.glb"]

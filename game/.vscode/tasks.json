@@ -4,6 +4,64 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "Test",
+      "detail": "Runs all tests",
+      "type": "shell",
+      "command": "cargo t",
+      "linux": {
+        "command": "cargo t --features bevy/dynamic"
+      },
+      "problemMatcher": ["$rustc"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": true,
+        "focus": true
+      }
+    },{% if crate_type == "lib" %}
+    {
+      "label": "Build release",
+      "detail": "Make a release build",
+      "type": "shell",
+      "command": "cargo build --release",
+      "problemMatcher": ["$rustc"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": true,
+        "focus": true
+      }
+    },{
+      "label": "Open doc",
+      "detail": "Open the documentation",
+      "type": "shell",
+      "command": "cargo doc --open",
+      "problemMatcher": ["$rustc"],
+      "dependsOn": "Build doc"
+    },
+    {
+      "label": "Build doc",
+      "detail": "Builds the documentation",
+      "type": "shell",
+      "command": "cargo doc",
+      "problemMatcher": ["$rustc"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "panel": "shared",
+        "showReuseMessage": true,
+        "focus": true,
+        "clear": true
+      }
+    },{% endif %}
+    {
       "label": "Check all-features",
       "detail": "Run a compile check against all features",
       "type": "shell",
@@ -22,32 +80,10 @@
       }
     },
     {
-      "label": "Test",
-      "detail": "Runs all tests",
-      "type": "shell",
-      "command": "cargo t",
-      "linux": {
-        "command": "cargo t --features bevy/dynamic"
-      },
-      "problemMatcher": ["$rustc"],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "panel": "shared",
-        "showReuseMessage": true,
-        "clear": true,
-        "focus": true
-      }
-    },
-    {
       "label": "Build release",
       "detail": "Make a release build",
       "type": "shell",
       "command": "cargo build --release",
-      "linux": {
-        "command": "cargo build --features bevy/dynamic --release"
-      },
       "problemMatcher": ["$rustc"],
       "presentation": {
         "echo": true,
@@ -57,7 +93,7 @@
         "clear": true,
         "focus": true
       }
-    },
+    },{% if crate_type != "lib" %}
     {
       "label": "Run release",
       "detail": "Runs binary in release mode",
@@ -95,7 +131,7 @@
         "clear": true,
         "focus": true
       }
-    },
+    },{% endif %}
     {
       "label": "Update",
       "detail": "Update dependencies (Cargo.lock)",

@@ -11,33 +11,28 @@ description = """
 Short description goes here.
 """
 license = "MIT OR Apache-2.0"
-repository = "https://github.com/<USERNAME>/{{project-name}}"
+repository = "https://github.com/USERNAME/{{project-name}}"
+documentation = "https://docs.rs/{{project-name}}"
+keywords = []
+categories = []
 edition = "2021"
+#resolver = "2"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-bevy = { version = "0.7", features = ["serialize"] }
+{% if crate_type == "lib" %}bevy = { version = "0.7", default-features = false, features = [] }
+{% else %}bevy = { version = "0.7", features = [] }
 bevy_editor_pls = { git = "https://github.com/jakobhellermann/bevy_editor_pls", optional = true }
 anyhow = "1.0"
-
-# Other crates of possible interest:
-# bevy-atlas-loader
-# iyes_loopless
-# ron = "0.7.0"
-# strum
-# derive_more
-# enum_default
-# bevy_tweening
-# bevy_kira_audio
-# parry2d / 3d
-# rapier2d / 3d
-
+{% endif %}
+[dev-dependencies]
+{% if crate_type == "lib" %}bevy = { version = "0.7", features = [] }{% endif %}
 {% if bevy_git %}[patch.crates-io]
 bevy = { git = "https://github.com/bevyengine/bevy", branch = "main" }
 
 {% endif %}[features]
-default = []
-editor = [ "bevy_editor_pls" ]
+default = []{% if crate_type != "lib" %}
+editor = [ "bevy_editor_pls" ]{% endif %}
 
 # Enable only a small amount of optimization in debug mode
 [profile.dev]

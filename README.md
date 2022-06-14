@@ -1,38 +1,25 @@
 # Bevy-template-rs
 
-Here are a few `cargo-generate` templates for use when creating [bevy] applications.
+This is a small but feature rich `cargo-generate` template for use when creating [bevy] applications.
 
-## Templates
+## Features
 
-### Game
-
-This is a template for starting a new game.
-
-- Binary
-- Latest (0.7) [Bevy] version, or GitHub main version (as a patch), are both supported.
+- Binary or Library. Select which by passing `--bin` or `--lib` to `cargo-generate`. 
+- Binary optionally sets up a 2D or 3D camera.
+- Binary expansion setup to use [bevy_editor_pls](https://github.com/jakobhellermann/bevy_editor_pls).
+Just pass `--features editor` when building (or use the right task in vscode).
+- Library expansion includes complete integration test example.
 - The template will utilize *"fast compiles"* as described in [The Bevy Book] when building using
   the vscode tasks. If not using vscode, just use `cargo build --features bevy/dynamic`.
 - Basic GitHub workflow for building/testing the resulting project
-- VSCode launch configuration for executable/unit-tests and integration test
-- VSCode tasks
-
-### crate-plugin
-
-A simple template for creating a plugin with [Bevy].
-
-- Library
 - Latest (0.7) [Bevy] version, or GitHub main version (as a patch), are both supported.
-- The template will utilize *"fast compiles"* as described in [The Bevy Book] when building using
-  the vscode tasks.
-- Code example for doing integration tests
-- Basic GitHub workflow for building/testing the resulting project
-- VSCode launch configuration for debugging unit and integration tests
+- VSCode launch configuration for executable/unit-tests and integration test
 - VSCode tasks
 
 ## Usage
 
 ```shell
-cargo generate taurr/bevy-template-rs
+cargo generate taurr/bevy-template-rs [--lib]
 ```
 
 ![Template expansion](./assets/template-expansion.gif)

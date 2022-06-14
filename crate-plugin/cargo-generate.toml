@@ -1,8 +1,0 @@
-[template]
-cargo_generate_version = ">=0.10.0"
-
-[placeholders]
-bevy_git = { type = "bool", prompt = "Use git version of Bevy?", default = false }
-
-[hooks]
-post = ["final-msg.rhai"]
