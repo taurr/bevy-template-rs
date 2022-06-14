@@ -47,6 +47,10 @@ fn setup(mut commands: Commands{% if camera == "3D" %}, asset_server: Res<AssetS
 struct DebugPlugins;
 
 impl PluginGroup for DebugPlugins {
+    #[cfg(not(feature = "editor"))]
+    fn build(&mut self, _: &mut bevy::app::PluginGroupBuilder) {
+    }
+
     #[cfg(feature = "editor")]
     fn build(&mut self, #[allow(unused)] group: &mut bevy::app::PluginGroupBuilder) {
         use bevy_editor_pls::EditorPlugin;
@@ -54,9 +58,5 @@ impl PluginGroup for DebugPlugins {
             .add(EditorPlugin)
             .add(bevy::diagnostic::FrameTimeDiagnosticsPlugin)
             .add(bevy::diagnostic::EntityCountDiagnosticsPlugin);
-    }
-
-    #[cfg(not(feature = "editor"))]
-    fn build(&mut self, _: &mut bevy::app::PluginGroupBuilder) {
     }
 }
