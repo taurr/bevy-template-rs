@@ -11,7 +11,7 @@ This is a template for starting a new game.
 - Binary
 - Latest (0.7) [Bevy] version, or GitHub main version (as a patch), are both supported.
 - The template will utilize *"fast compiles"* as described in [The Bevy Book] when building using
-  the vscode tasks.
+  the vscode tasks. If not using vscode, just use `cargo build --features bevy/dynamic`.
 - Basic GitHub workflow for building/testing the resulting project
 - VSCode launch configuration for executable/unit-tests and integration test
 - VSCode tasks
