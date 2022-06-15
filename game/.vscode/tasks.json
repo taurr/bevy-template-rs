@@ -4,13 +4,10 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Test",
+      "label": "Test (fast compile)",
       "detail": "Runs all tests",
       "type": "shell",
-      "command": "cargo t --workspace",
-      "linux": {
-        "command": "cargo t --workspace --features bevy/dynamic"
-      },
+      "command": "cargo t --workspace --features bevy/dynamic",
       "problemMatcher": ["$rustc"],
       "group": "build",
       "presentation": {
@@ -37,7 +34,24 @@
         "clear": true,
         "focus": true
       }
-    },{
+    },
+    {
+      "label": "Build debug",
+      "detail": "Make a debug build",
+      "type": "shell",
+      "command": "cargo build",
+      "problemMatcher": ["$rustc"],{% if crate_type == "lib" %}
+      "group": "build",{% endif %}
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": true,
+        "focus": true
+      }
+    },
+    {
       "label": "Open doc",
       "detail": "Open the documentation",
       "type": "shell",
@@ -62,14 +76,12 @@
       }
     },
     {
-      "label": "Check all-features",
+      "label": "Check all-features (fast compile)",
       "detail": "Run a compile check against all features",
       "type": "shell",
-      "command": "cargo check --all-features --all-targets",
-      "linux": {
-        "command": "cargo check --features bevy/dynamic --all-features --all-targets"
-      },
+      "command": "cargo check --features bevy/dynamic --all-features --all-targets",
       "problemMatcher": ["$rustc"],
+      "group": "build",
       "presentation": {
         "echo": true,
         "reveal": "always",
@@ -80,12 +92,44 @@
       }
     },{% if crate_type != "lib" %}
     {
-      "label": "Run release",
+      "label": "Run release (fast compile)",
       "detail": "Runs binary in release mode",
       "type": "shell",
-      "command": "cargo run --release --bin {{project-name}}",
-      "linux": {
-        "command": "cargo run --features bevy/dynamic --release --bin {{project-name}}"
+      "command": "cargo run --features bevy/dynamic --release --bin {{project-name}}",
+      "problemMatcher": ["$rustc"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": true,
+        "focus": true
+      }
+    },
+    {
+      "label": "Run debug (fast compile)",
+      "detail": "Runs binary in debug mode",
+      "type": "shell",
+      "command": "cargo run --features bevy/dynamic --bin {{project-name}}",
+      "problemMatcher": ["$rustc"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": true,
+        "focus": true
+      }
+    },
+    {
+      "label": "Run release w. editor (fast compile@linux)",
+      "detail": "Runs binary in release mode, with editor enabled",
+      "type": "shell",
+      "command": "cargo run --features editor --release --bin {{project-name}}",
+      "linux":{
+        "command": "cargo run --features bevy/dynamic,editor --release --bin {{project-name}}",
       },
       "problemMatcher": ["$rustc"],
       "group": "build",
@@ -99,13 +143,10 @@
       }
     },
     {
-      "label": "Run release w. editor",
-      "detail": "Runs binary in release mode, with editor enabled",
+      "label": "Run debug w. editor (fast compile)",
+      "detail": "Runs binary in debug mode, with editor enabled",
       "type": "shell",
-      "command": "cargo run --features editor --release --bin {{project-name}}",
-      "linux": {
-        "command": "cargo run --features bevy/dynamic --features editor --release --bin {{project-name}}"
-      },
+      "command": "cargo run --features bevy/dynamic,editor --bin {{project-name}}",
       "problemMatcher": ["$rustc"],
       "group": "build",
       "presentation": {
