@@ -8,8 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 - `crate_plugin` deleted in favor of passing `--lib` to `cargo-generate`.
 
+### Added
+- Template now reacts to being expanded inside a `cargo` project. If `cargo-generate` detects a 
+`Cargo.toml` file in a previous folder, the template will not include several unneeded files.
+
 ### Changed
 - Always include a `setup` startup system when expanding for a binary.
+- Inclusion of additional files like `CHANGELOG.md' is now optional.
+- Requires `cargo-generate` 0.15.0
 
 ## [v1.3.0]
 ### Added
@@ -23,4 +29,4 @@ backend so it also works on GitHub actions.
 ### Removed
 - Deleted the sub-template `lib-assets`.
 
-[v1.3.0]: https://github.com/taurr/bevy-template-rs/releases/tag/v1.3.0
+[v1.3.0]: https://github.com/
