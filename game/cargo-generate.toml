@@ -6,12 +6,15 @@ cargo_generate_version = ">0.14.0"
 [hooks]
 post = ["final-msg.rhai"]
 
+# expansion as a library crate
 [conditional.'crate_type == "lib"']
 ignore = ["src/main.rs", "assets"]
 
+# expansion as a binary
 [conditional.'crate_type != "lib"']
 ignore = ["src/lib.rs", "tests"]
 
+# when binary, ark for these placeholders
 [conditional.'crate_type != "lib"'.placeholders]
 camera = { type = "string", prompt = "Camera type?", choices = [
     "2D",
@@ -19,13 +22,10 @@ camera = { type = "string", prompt = "Camera type?", choices = [
     "None",
 ], default = "2D" }
 
-[conditional.'camera != "3D"']
-ignore = ["assets/cube.glb"]
-
 [conditional.'within_cargo_project != true'.placeholders]
 github_setup = { type = "bool", prompt = "Include GitHub additional files?", default=false }
 
-[conditional.within_cargo_project]
+[conditional.'within_cargo_project']
 ignore = [
     ".github",
     ".vscode",
@@ -34,5 +34,11 @@ ignore = [
     "CODE_OF_CONDUCT.md",
     "CONTRIBUTING.md",
     "LICENSE-APACHE",
-    "LICENSE-MIT",
+    "LICENSE-MIT",rs
+]
+
+[conditional.'within_cargo_project && is_init']
+ignore = [
+    "README.md",
+    "Cargo.toml",
 ]
