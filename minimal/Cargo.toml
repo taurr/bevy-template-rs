@@ -1,0 +1,22 @@
+[workspace]
+resolver = "2"
+members = []
+
+[package]
+name = "{{project-name}}"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+bevy = { version = "0.7", features = ["dynamic"] }
+
+[features]
+default = []
+
+# Enable only a small amount of optimization in debug mode
+[profile.dev]
+opt-level = 1
+
+# Enable high optimizations for dependencies (incl. Bevy), but not for our code:
+[profile.dev.package."*"]
+opt-level = 3
