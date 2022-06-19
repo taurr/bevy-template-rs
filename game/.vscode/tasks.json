@@ -8,6 +8,11 @@
       "detail": "Runs all tests",
       "type": "shell",
       "command": "cargo t --workspace --features bevy/dynamic",
+      "options": {
+        "env": {
+          "RUST_LOG": "warn,{{crate_name}}=trace"
+        }
+      },
       "problemMatcher": ["$rustc"],
       "group": "build",
       "presentation": {

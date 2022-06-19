@@ -34,7 +34,7 @@ ignore = [
     "CODE_OF_CONDUCT.md",
     "CONTRIBUTING.md",
     "LICENSE-APACHE",
-    "LICENSE-MIT",rs
+    "LICENSE-MIT",
 ]
 
 [conditional.'within_cargo_project && is_init']
