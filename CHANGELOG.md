@@ -7,15 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 ### Removed
 - `crate_plugin` deleted in favor of passing `--lib` to `cargo-generate`.
+- `editor` feature currently disabled, awaiting Bevy 0.8 support in `bevy_editor_pls`
 
 ### Added
+- IDE support now optional
 - Template now reacts to being expanded inside a `cargo` project. If `cargo-generate` detects a 
 `Cargo.toml` file in a previous folder, the template will not include several unneeded files.
 
 ### Changed
+- Now requires Bevy 0.8
+- Workflow setup files moved into their own subtemplate for adding to any bevy project if needed.
 - Always include a `setup` startup system when expanding for a binary.
-- Inclusion of additional files like `CHANGELOG.md' is now optional.
-- Requires `cargo-generate` 0.15.0
+- Requires `cargo-generate` 0.16.0
 
 ## [v1.3.0]
 ### Added

@@ -128,41 +128,41 @@
         "focus": true
       }
     },
-    {
-      "label": "Run release w. editor (fast compile@linux)",
-      "detail": "Runs binary in release mode, with editor enabled",
-      "type": "shell",
-      "command": "cargo run --features editor --release --bin {{project-name}}",
-      "linux":{
-        "command": "cargo run --features bevy/dynamic,editor --release --bin {{project-name}}",
-      },
-      "problemMatcher": ["$rustc"],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "panel": "shared",
-        "showReuseMessage": true,
-        "clear": true,
-        "focus": true
-      }
-    },
-    {
-      "label": "Run debug w. editor (fast compile)",
-      "detail": "Runs binary in debug mode, with editor enabled",
-      "type": "shell",
-      "command": "cargo run --features bevy/dynamic,editor --bin {{project-name}}",
-      "problemMatcher": ["$rustc"],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "panel": "shared",
-        "showReuseMessage": true,
-        "clear": true,
-        "focus": true
-      }
-    },{% endif %}
+//    {
+//      "label": "Run release w. editor (fast compile@linux)",
+//      "detail": "Runs binary in release mode, with editor enabled",
+//      "type": "shell",
+//      "command": "cargo run --features editor --release --bin {{project-name}}",
+//      "linux":{
+//        "command": "cargo run --features bevy/dynamic,editor --release --bin {{project-name}}",
+//      },
+//      "problemMatcher": ["$rustc"],
+//      "group": "build",
+//      "presentation": {
+//        "echo": true,
+//        "reveal": "always",
+//        "panel": "shared",
+//        "showReuseMessage": true,
+//        "clear": true,
+//        "focus": true
+//      }
+//    },
+//    {
+//      "label": "Run debug w. editor (fast compile)",
+//      "detail": "Runs binary in debug mode, with editor enabled",
+//      "type": "shell",
+//      "command": "cargo run --features bevy/dynamic,editor --bin {{project-name}}",
+//      "problemMatcher": ["$rustc"],
+//      "group": "build",
+//      "presentation": {
+//        "echo": true,
+//        "reveal": "always",
+//        "panel": "shared",
+//        "showReuseMessage": true,
+//        "clear": true,
+//        "focus": true
+//      }
+//    },{% endif %}
     {
       "label": "Update",
       "detail": "Update dependencies (Cargo.lock)",

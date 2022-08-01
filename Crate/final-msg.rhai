@@ -1,14 +1,8 @@
 if variable::get("crate_type") != "lib" && variable::get("camera") != "3D" {
     file::delete("assets/cube.glb");
 }
-
-if variable::get("github_setup") == false {
-    file::delete(".github");
-    file::delete("CHANGELOG.md");
-    file::delete("CODE_OF_CONDUCT.md");
-    file::delete("CONTRIBUTING.md");
-    file::delete("LICENSE-APACHE");
-    file::delete("LICENSE-MIT");
+if variable::get("crate_type") != "lib" && variable::get("camera") != "2D" {
+    file::delete("assets/icon.png");
 }
 
 if variable::get("within_cargo_project") {

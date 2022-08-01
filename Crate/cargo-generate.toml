@@ -1,10 +1,14 @@
 [template]
-cargo_generate_version = ">0.14.0"
-
-[placeholders]
+cargo_generate_version = ">=0.16.0"
 
 [hooks]
 post = ["final-msg.rhai"]
+
+[placeholders]
+gh_username = { type = "string", prompt = "Github Username?", regex="\\w+" }
+
+[conditional.'within_cargo_project == false'.placeholders]
+ide = { type = "string", prompt = "Which IDE to use?", default = "vscode", choices = ["none", "vscode"] }
 
 # expansion as a library crate
 [conditional.'crate_type == "lib"']
@@ -22,23 +26,15 @@ camera = { type = "string", prompt = "Camera type?", choices = [
     "None",
 ], default = "2D" }
 
-[conditional.'within_cargo_project != true'.placeholders]
-github_setup = { type = "bool", prompt = "Include GitHub additional files?", default=false }
-
 [conditional.'within_cargo_project']
 ignore = [
     ".github",
     ".vscode",
     ".gitignore",
-    "CHANGELOG.md",
-    "CODE_OF_CONDUCT.md",
-    "CONTRIBUTING.md",
-    "LICENSE-APACHE",
-    "LICENSE-MIT",
 ]
 
 [conditional.'within_cargo_project && is_init']
-ignore = [
-    "README.md",
-    "Cargo.toml",
-]
+ignore = ["README.md", "Cargo.toml"]
+
+[conditional.'within_cargo_project == false && ide != "vscode"']
+ignore = [".vscode"]
