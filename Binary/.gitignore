@@ -1,6 +1,4 @@
-{% if crate_type=="lib" %}Cargo.lock
-
-{% endif %}# will have compiled files and executables
+# will have compiled files and executables
 /debug/
 /target/
 
