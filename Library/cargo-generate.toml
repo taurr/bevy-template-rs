@@ -1,0 +1,24 @@
+[template]
+cargo_generate_version = ">=0.16.0"
+
+[hooks]
+post = ["final-msg.rhai"]
+
+[placeholders]
+gh_username = { type = "string", prompt = "Github Username?", regex="\\w+" }
+
+[conditional.'within_cargo_project == false'.placeholders]
+ide = { type = "string", prompt = "Which IDE to use?", default = "vscode", choices = ["none", "vscode"] }
+
+[conditional.'within_cargo_project']
+ignore = [
+    ".github",
+    ".vscode",
+    ".gitignore",
+]
+
+[conditional.'within_cargo_project && is_init']
+ignore = ["README.md", "Cargo.toml"]
+
+[conditional.'within_cargo_project == false && ide != "vscode"']
+ignore = [".vscode"]

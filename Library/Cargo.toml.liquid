@@ -1,0 +1,35 @@
+{% if within_cargo_project==false %}[workspace]
+resolver = "2"
+members = []
+
+{% endif %}[package]
+name = "{{project-name}}"
+version = "0.1.0"
+authors = ["{{authors}}"]
+readme = "README.md"
+description = """
+Short description goes here.
+"""
+#license = "MIT OR Apache-2.0"
+{% if within_cargo_project==false %}#repository = "https://github.com/USERNAME/{{project-name}}"
+#documentation = "https://docs.rs/{{project-name}}"
+keywords = []
+categories = []
+{% endif %}edition = "2021"{% if within_cargo_project %}
+resolver = "2"{% endif %}
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+# Other crates of possible interest:
+# https://bevyengine.org/assets/#assets
+# https://gist.github.com/taurr/962ceb49472993e3092e97b07339c164
+bevy = { version = "0.8", default-features = false, features = [] }
+
+[dev-dependencies]
+bevy = { version = "0.8", features = [] }
+
+{% if within_cargo_project==false %}#[patch.crates-io]
+#bevy = { git = "https://github.com/bevyengine/bevy", branch = "main" }
+
+{% endif %}[features]
+default = []

@@ -1,7 +1,7 @@
-if variable::get("crate_type") != "lib" && variable::get("camera") != "3D" {
+if variable::get("camera") != "3D" {
     file::delete("assets/cube.glb");
 }
-if variable::get("crate_type") != "lib" && variable::get("camera") != "2D" {
+if variable::get("camera") != "2D" {
     file::delete("assets/icon.png");
 }
 

@@ -2,29 +2,18 @@
 cargo_generate_version = ">=0.16.0"
 
 [hooks]
+pre = ["pre-check.rhai"]
 post = ["final-msg.rhai"]
 
 [placeholders]
 gh_username = { type = "string", prompt = "Github Username?", regex="\\w+" }
-
-[conditional.'within_cargo_project == false'.placeholders]
-ide = { type = "string", prompt = "Which IDE to use?", default = "vscode", choices = ["none", "vscode"] }
-
-# expansion as a library crate
-[conditional.'crate_type == "lib"']
-ignore = ["src/main.rs", "assets"]
-
-# expansion as a binary
-[conditional.'crate_type != "lib"']
-ignore = ["src/lib.rs", "tests"]
-
-# when binary, ark for these placeholders
-[conditional.'crate_type != "lib"'.placeholders]
 camera = { type = "string", prompt = "Camera type?", choices = [
     "2D",
     "3D",
-    "None",
 ], default = "2D" }
+
+[conditional.'within_cargo_project == false'.placeholders]
+ide = { type = "string", prompt = "Which IDE to use?", default = "vscode", choices = ["none", "vscode"] }
 
 [conditional.'within_cargo_project']
 ignore = [
