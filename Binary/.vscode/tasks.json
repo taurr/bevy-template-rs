@@ -7,6 +7,7 @@
       "label": "Test (fast compile)",
       "detail": "Runs all tests",
       "type": "shell",
+      "group": "test",
       "command": "cargo t --workspace --features bevy/dynamic",
       "options": {
         "env": {
@@ -14,7 +15,6 @@
         }
       },
       "problemMatcher": ["$rustc"],
-      "group": "build",
       "presentation": {
         "echo": true,
         "reveal": "always",
@@ -55,28 +55,12 @@
       }
     },
     {
-      "label": "Check all-features (fast compile)",
-      "detail": "Run a compile check against all features",
-      "type": "shell",
-      "command": "cargo check --features bevy/dynamic --all-features --all-targets",
-      "problemMatcher": ["$rustc"],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "panel": "shared",
-        "showReuseMessage": true,
-        "clear": true,
-        "focus": true
-      }
-    },
-    {
       "label": "Run release (fast compile)",
       "detail": "Runs binary in release mode",
       "type": "shell",
-      "command": "cargo run --features bevy/dynamic --release --bin {{project-name}}",
-      "problemMatcher": ["$rustc"],
       "group": "build",
+      "command": "cargo run --features bevy/dynamic --release",
+      "problemMatcher": ["$rustc"],
       "presentation": {
         "echo": true,
         "reveal": "always",
@@ -90,9 +74,41 @@
       "label": "Run debug (fast compile)",
       "detail": "Runs binary in debug mode",
       "type": "shell",
-      "command": "cargo run --features bevy/dynamic --bin {{project-name}}",
+      "group": "build",
+      "command": "cargo run --features bevy/dynamic",
+      "problemMatcher": ["$rustc"],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": true,
+        "focus": true
+      }
+    },
+{
+      "label": "Run w. editor-pls",
+      "detail": "Runs binary with editor-pls enabled",
+      "type": "shell",
+      "command": "cargo run --features editor",
       "problemMatcher": ["$rustc"],
       "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": true,
+        "focus": true
+      }
+    },
+    {
+      "label": "WASM development",
+      "detail": "Use cargo watch to run wasm-server-runner",
+      "type": "shell",
+      "group": "build",
+      "command": "cargo watch -- cargo run --target wasm32-unknown-unknown",
+      "problemMatcher": ["$rustc"],
       "presentation": {
         "echo": true,
         "reveal": "always",
@@ -137,6 +153,19 @@
       "detail": "Format all source",
       "type": "shell",
       "command": "cargo fmt --all --quiet",
+      "problemMatcher": [],
+      "presentation": {
+        "echo": false,
+        "reveal": "never",
+        "panel": "shared",
+        "showReuseMessage": false
+      }
+    },
+    {
+      "label": "Clean",
+      "detail": "Clean build artifacts",
+      "type": "shell",
+      "command": "cargo clean",
       "problemMatcher": [],
       "presentation": {
         "echo": false,

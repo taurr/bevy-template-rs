@@ -16,21 +16,22 @@ Short description goes here.
 resolver = "2"{% endif %}
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[features]
+default = []
+editor = [ "bevy_editor_pls" ]
+
 [dependencies]
 # Other crates of possible interest:
 # https://bevyengine.org/assets/#assets
 # https://gist.github.com/taurr/962ceb49472993e3092e97b07339c164
 bevy = { version = "0.8", features = [] }
-#bevy_editor_pls = { git = "https://github.com/jakobhellermann/bevy_editor_pls", optional = true }
+bevy_editor_pls = { git = "https://github.com/jakobhellermann/bevy_editor_pls", optional = true }
 anyhow = "1.0"
 
 {% if within_cargo_project==false %}#[patch.crates-io]
 #bevy = { git = "https://github.com/bevyengine/bevy", branch = "main" }
 
-{% endif %}[features]
-default = []
-#editor = [ "bevy_editor_pls" ]
-{% if within_cargo_project==false %}
+{% endif %}{% if within_cargo_project==false %}
 # Enable only a small amount of optimization in debug mode
 [profile.dev]
 opt-level = 1
