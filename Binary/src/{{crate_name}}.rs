@@ -49,7 +49,7 @@ impl {{crate_name|pascal_case}}Plugin {
     }
 
     fn rotate(time: Res<Time>, mut transforms: Query<&mut Transform, With<ExampleObject>>) {
-        for mut transform in transforms.iter_mut() {
+        for mut transform in &mut transforms {
             transform.rotate_z(45.0 * TAU / 360.0 * time.delta_seconds());
         }
     }
