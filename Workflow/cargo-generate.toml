@@ -1,7 +1,12 @@
 [template]
 cargo_generate_version = ">=0.16.0"
+#excludes = [
+#    ".github/workflows/ci.yaml",
+#    ".github/workflows/release.yaml",
+#]
 
 [placeholders]
 
 [hooks]
 pre = ["pre-check.rhai"]
+post = ["final-msg.rhai"]
