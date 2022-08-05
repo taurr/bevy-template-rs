@@ -1,0 +1,22 @@
+[template]
+cargo_generate_version = ">=0.16.0"
+
+[hooks]
+pre = ["pre-check.rhai"]
+post = ["final-msg.rhai"]
+
+[conditional.'within_cargo_project']
+ignore = [
+    ".cargo",
+    ".vscode",
+    ".gitignore",
+]
+
+[conditional.'within_cargo_project && is_init']
+ignore = ["Cargo.toml"]
+
+[conditional.'within_cargo_project == false'.placeholders]
+ide = { type = "string", prompt = "Which IDE to use?", default = "vscode", choices = ["none", "vscode"] }
+
+[conditional.'within_cargo_project == false && ide != "vscode"']
+ignore = [".vscode"]
