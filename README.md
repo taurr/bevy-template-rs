@@ -73,15 +73,15 @@ ide = "vscode|none"
 
 [favorites.bevy-bin]
 git = "https://github.com/taurr/bevy-template-rs"
-subfolder = Binary
+subfolder = "Binary"
 
 [favorites.bevy-lib]
 git = "https://github.com/taurr/bevy-template-rs"
-subfolder = Library
+subfolder = "Library"
 
 [favorites.bevy-wf]
 git = "https://github.com/taurr/bevy-template-rs"
-subfolder = Workflow
+subfolder = "Workflow"
 is_init = true
 ```
 
