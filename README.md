@@ -19,6 +19,10 @@ This is a small but feature rich set of [cargo-generate] templates for use when 
   
   - If enabling the feature `editor`, the project will attempt to use [bevy_editor_pls].
 
+- **Minimal template**
+  
+  - Minimal application template. Really only the basics for a project (Though still with WASM support).
+
 - **Library template for a small library crate.**
   
   - Includes example of integration testing.
