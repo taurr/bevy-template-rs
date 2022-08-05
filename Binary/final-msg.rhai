@@ -14,7 +14,7 @@ if !variable::get("within_cargo_project") {
     print();
     print("You can then launch a small development server using: cargo watch -- cargo run --target wasm32-unknown-unknown");
     if variable::get("ide") == "vscode" {
-        print("A vscode build task for launching the development server has been added.");
+        print("A vscode build task for launching the development server (using cargo-watch) has been added.");
     }
 } else {
     print();

@@ -8,13 +8,14 @@ This is a small but feature rich set of [cargo-generate] templates for use when 
   
   - Complete with camera setup, a very small 2D or 3D system and debug diagnostics.
   
-  - Cargo runner configured to use [WASM Server Runner] in case of WASM target (`wasm32-unknown-unknown`)
-  
   - Optionally includes setup of [vscode tasks].
   
-  - Will utilize *fast compiles* as described in [The Bevy Book] when built using the vscode tasks. 
+  - Cargo runner configured to use [WASM Server Runner] in case of WASM target (`wasm32-unknown-unknown`)
+    - Starting the WASM development server using the optional [vscode tasks] uses [cargo-watch].
   
-    If not using vscode, just use `cargo build --features bevy/dynamic`.
+  - Will utilize *fast compiles* as described in [The Bevy Book] when built using the [vscode tasks] (*not for WASM target*). 
+  
+    If not using [vscode], just use `cargo build --features bevy/dynamic`.
   
   - If enabling the feature `editor`, the project will attempt to use [bevy_editor_pls].
 
@@ -34,11 +35,21 @@ This is a small but feature rich set of [cargo-generate] templates for use when 
 
 ## Usage
 
+To expand e.g a binary project, use:
+```shell
+cargo generate taurr/bevy-template-rs Binary
+```
+
+To include Github workflow files, use:
+```shell
+cd <PROJECT_DIR>
+cargo generate taurr/bevy-template-rs Workflow --init --name <BINARY NAME>
+```
+
+Why the `--init` parameter? Well thats just to tell [cargo-generate] *not* to create a folder for the generated files.
+
 For further usage, or if having issues with `cargo-generate`, please have a look in the [cargo-generate book](https://cargo-generate.github.io/cargo-generate/index.html).
 
-```shell
-cargo generate taurr/bevy-template-rs
-```
 
 ![Template expansion](./assets/template-expansion.gif)
 
@@ -50,7 +61,7 @@ cargo generate taurr/bevy-template-rs
 cargo install cargo-generate
 ```
 
-## Tips'n'tricks
+## :bulb: Tips'n'tricks
 
 If the template is used on a regular basis, [cargo-generate] allows to setup favorite templates and default variables.
 
@@ -60,15 +71,23 @@ To do this, open or create the file `$CARGO_HOME/cargo-generate.toml`, insert th
 gh_username = "<YOUR GITHUB USERNAME>"
 ide = "vscode|none"
 
-[favorites.bevy]
-git = "https://github.com/taurr/bevy-template-rs"
-
 [favorites.bevy-bin]
 git = "https://github.com/taurr/bevy-template-rs"
 subfolder = Binary
+
+[favorites.bevy-lib]
+git = "https://github.com/taurr/bevy-template-rs"
+subfolder = Library
+
+[favorites.bevy-wf]
+git = "https://github.com/taurr/bevy-template-rs"
+subfolder = Workflow
+is_init = true
 ```
 
-After this, the template can be expanded using `cargo generate bevy`, or `cargo generate bevy-bin`.
+After this, the template can be expanded using `cargo generate bevy-bin`, `cargo generate bevy-lib` or `cargo generate bevy-wf`.
+
+:warning: Adding the workflow template through this favorite will no longer require the `--init` parameter, and thus will always expand in the current directory!
 
 [Bevy]:https://bevyengine.org
 [cargo-generate]:https://github.com/cargo-generate/cargo-generate
@@ -78,3 +97,4 @@ After this, the template can be expanded using `cargo generate bevy`, or `cargo 
 [WASM Server Runner]: https://github.com/jakobhellermann/wasm-server-runner
 [vscode]: https://code.visualstudio.com
 [vscode tasks]: https://code.visualstudio.com/Docs/editor/tasks
+[cargo-watch]: https://github.com/watchexec/cargo-watch
