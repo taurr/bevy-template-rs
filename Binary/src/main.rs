@@ -1,16 +1,26 @@
 #![doc = include_str!("../README.md")]
 
-use anyhow::Result;
+{% if camera=="2D" -%}
+use bevy::{
+    prelude::*,
+    render::{camera::ScalingMode, texture::ImageSettings},
+};
+{%- else -%}
 use bevy::prelude::*;
+{%- endif %}
 
 mod debug;
 mod {{crate_name}};
 
+const WIDTH: f32 = 640.0;
 const HEIGHT: f32 = 480.0;
-const ASPECT_RATIO: f32 = 16.0/9.0;
-const BACKGROUND: Color = Color::rgb(0.15, 0.15, 0.15);
+{% if camera=="2D" -%}
+const VIEWPORT_WIDTH: f32 = 80.0;
+const VIEWPORT_HEIGHT: f32 = 45.0;
+{%- endif -%}
+const BACKGROUND_COLOR: Color = Color::rgb(0.15, 0.15, 0.15);
 
-fn main() -> Result<()> {
+fn main() {
     App::new()
         .insert_resource(WindowDescriptor {
             title: format!(
@@ -18,19 +28,43 @@ fn main() -> Result<()> {
                 env!("CARGO_PKG_NAME"),
                 env!("CARGO_PKG_VERSION")
             ),
-            width: HEIGHT * ASPECT_RATIO,
+            width: WIDTH,
             height: HEIGHT,
-            resizable: false,
             ..default()
         })
-        .insert_resource(ClearColor(BACKGROUND)){% if camera=="3D" %}
+        .insert_resource(ClearColor(BACKGROUND_COLOR))
+        {% if camera=="3D" -%}
         .insert_resource(AmbientLight {
             color: Color::WHITE,
             brightness: 0.2,
-        }){% endif %}
+        })
+        {%- else -%}
+        .insert_resource(ImageSettings::default_nearest())
+        {%- endif %}
         .add_plugins(DefaultPlugins)
         .add_plugins(debug::DebugPlugins)
+        .add_startup_system(spawn_camera)
         .add_plugin({{crate_name}}::{{crate_name|pascal_case}}Plugin)
         .run();
-    Ok(())
+}
+
+fn spawn_camera(mut commands: Commands) {
+    {% if camera=="3D" -%}
+    commands.spawn_bundle(Camera3dBundle {
+        transform: Transform::from_xyz(0.0, 0.0, 10.0)
+            .looking_at(Vec3::new(0.0, 0.0, 0.0), Vec3::Y),
+        ..default()
+    });
+    {%- else -%}
+    commands.spawn_bundle(Camera2dBundle {
+        projection: OrthographicProjection {
+            scaling_mode: ScalingMode::Auto {
+                min_width: VIEWPORT_WIDTH,
+                min_height: VIEWPORT_HEIGHT,
+            },
+            ..default()
+        },
+        ..default()
+    });
+    {%- endif %}
 }
