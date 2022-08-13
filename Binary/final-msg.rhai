@@ -4,7 +4,10 @@ if variable::get("camera") != "3D" {
 if variable::get("camera") != "2D" {
     file::delete("assets/icon.png");
 }
-file::delete("src/{{crate_name}}.rs");
+
+if file::exists("src/{{crate_name}}.rs") {
+    file::delete("src/{{crate_name}}.rs");
+}
 
 if !variable::get("within_cargo_project") {
     print();
