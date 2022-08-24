@@ -30,4 +30,5 @@
       },
       "cwd": "${workspaceFolder}"
     }
+  ]
 }
