@@ -57,10 +57,10 @@
       }
     },
     {
-      "label": "Build doc",
+      "label": "Build {{crate_name}} doc",
       "detail": "Builds the documentation",
       "type": "shell",
-      "command": "cargo doc",
+      "command": "cargo doc --lib --all-features --no-deps",
       "problemMatcher": ["$rustc"],
       "group": "build",
       "presentation": {
@@ -73,10 +73,10 @@
       }
     },
     {
-      "label": "Open doc",
+      "label": "Open {{crate_name}} doc",
       "detail": "Open the documentation",
       "type": "shell",
-      "command": "cargo doc --open",
+      "command": "cargo doc --lib --all-features --no-deps --open",
       "problemMatcher": ["$rustc"],
       "dependsOn": "Build doc"
     },

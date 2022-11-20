@@ -7,35 +7,32 @@ This is a small but feature rich set of [cargo-generate] templates for use when 
 - **Binary template for the main game binary.**
   
   - Complete with camera setup, a very small 2D or 3D system and debug diagnostics.
-  
+  - Includes integration test support - Small test with Bevy in headless mode.
   - Optionally includes setup of [vscode tasks].
-  
   - Cargo runner configured to use [WASM Server Runner] in case of WASM target (`wasm32-unknown-unknown`)
     - Starting the WASM development server using the optional [vscode tasks] uses [cargo-watch].
-  
   - Will utilize *fast compiles* as described in [The Bevy Book] when built using the [vscode tasks] (*not for WASM target*). 
-  
-    If not using [vscode], just use `cargo build --features bevy/dynamic`.
-  
+      - if not using [vscode], just use `cargo build --features bevy/dynamic`.
+  - If enabling the feature `inspector`, the project will attempt to use [bevy-inspector-egui] (works with WASM).
   - If enabling the feature `editor`, the project will attempt to use [bevy_editor_pls].
+  - WASM target goes fullscreen (or rather window)
+  - Adjusts if expanded inside a existing cargo project.
+
+
+- **Library template for a small library crate.**
+  
+  - Includes integration test support - Small test with Bevy in headless mode.  
+  - Optionally includes setup of [vscode tasks].
+  - Adjusts if expanded inside a existing cargo project.
 
 - **Minimal template**
   
   - Minimal application template. Really only the basics for a project (Though still with WASM support).
 
-- **Library template for a small library crate.**
-  
-  - Includes example of integration testing.
-  
-  - Optionally includes setup of [vscode tasks].
-
 - **Workflow template.**
 
   - Add a copy of the [Official Bevy Workflow template] to an existing project.
-  
-  - Template requires [cargo-generate] to be invoked with the `--init` parameter as it is *not inteded as a complete project*.
-
-- Binary/Libray templates adjusts if expanded inside a existing cargo project.
+  - Template requires [cargo-generate] to be invoked with the `--init` parameter as it is *not inteded as a complete project*. The template must be expanded inside an existing project.
 
 ## Usage
 

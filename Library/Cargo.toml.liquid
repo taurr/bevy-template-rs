@@ -11,7 +11,7 @@ description = """
 Short description goes here.
 """
 #license = "MIT OR Apache-2.0"
-{% if within_cargo_project==false %}#repository = "https://github.com/USERNAME/{{project-name}}"
+{% if within_cargo_project==false %}#repository = "https://github.com/{{gh_username}}/{{project-name}}"
 #documentation = "https://docs.rs/{{project-name}}"
 keywords = []
 categories = []
@@ -19,17 +19,20 @@ categories = []
 resolver = "2"{% endif %}
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[features]
+default = []
+
 [dependencies]
 # Other crates of possible interest:
 # https://bevyengine.org/assets/#assets
 # https://gist.github.com/taurr/962ceb49472993e3092e97b07339c164
-bevy = { version = "0.8", default-features = false, features = [] }
+bevy = { version = "0.9", default-features = false, features = [] }
 
 [dev-dependencies]
-bevy = { version = "0.8", features = [] }
+bevy = { version = "0.9", features = [] }
+anyhow = "1.0"
 
-{% if within_cargo_project==false %}#[patch.crates-io]
+{% if within_cargo_project==false %}
+#[patch.crates-io]
 #bevy = { git = "https://github.com/bevyengine/bevy", branch = "main" }
-
-{% endif %}[features]
-default = []
+{% endif %}

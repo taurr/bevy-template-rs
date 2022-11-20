@@ -56,11 +56,27 @@
         "focus": true
       }
     },
-{
+    {
       "label": "Run w. editor-pls",
       "detail": "Runs binary with editor-pls enabled",
       "type": "shell",
       "command": "cargo run --features editor",
+      "problemMatcher": ["$rustc"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": true,
+        "focus": true
+      }
+    },
+    {
+      "label": "Run w. inspector-egui",
+      "detail": "Runs binary with inspector-egui enabled",
+      "type": "shell",
+      "command": "cargo run --features inspector",
       "problemMatcher": ["$rustc"],
       "group": "build",
       "presentation": {
@@ -87,6 +103,46 @@
         "clear": true,
         "focus": true
       }
+    },
+    {
+      "label": "WASM development w. inspector-egui",
+      "detail": "Use cargo watch to run wasm-server-runner, inspector-egui enabled",
+      "type": "shell",
+      "group": "build",
+      "command": "cargo watch -- cargo run --target wasm32-unknown-unknown --features inspector",
+      "problemMatcher": ["$rustc"],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": true,
+        "focus": true
+      }
+    },
+    {
+      "label": "Build {{crate_name}} lib doc",
+      "detail": "Builds the documentation",
+      "type": "shell",
+      "command": "cargo doc --lib --all-features --no-deps",
+      "problemMatcher": ["$rustc"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "panel": "shared",
+        "showReuseMessage": true,
+        "focus": true,
+        "clear": true
+      }
+    },
+    {
+      "label": "Open {{crate_name}} lib doc",
+      "detail": "Open the documentation",
+      "type": "shell",
+      "command": "cargo doc --lib --all-features --no-deps --open",
+      "problemMatcher": ["$rustc"],
+      "dependsOn": "Build doc"
     },
     {
       "label": "Update",

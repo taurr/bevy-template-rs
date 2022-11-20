@@ -11,7 +11,7 @@ description = """
 Short description goes here.
 """
 #license = "MIT OR Apache-2.0"
-{% if within_cargo_project==false %}#repository = "https://github.com/USERNAME/{{project-name}}"
+{% if within_cargo_project==false %}#repository = "https://github.com/{{gh_username}}/{{project-name}}"
 {% endif %}edition = "2021"{% if within_cargo_project %}
 resolver = "2"{% endif %}
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -19,26 +19,44 @@ resolver = "2"{% endif %}
 [features]
 default = []
 editor = [ "bevy_editor_pls" ]
+inspector = [ "bevy-inspector-egui" ]
 
 [dependencies]
 # Other crates of possible interest:
 # https://bevyengine.org/assets/#assets
 # https://gist.github.com/taurr/962ceb49472993e3092e97b07339c164
-bevy = { version = "0.8", features = [] }
+bevy = { version = "0.9", features = [] }
 bevy_editor_pls = { git = "https://github.com/jakobhellermann/bevy_editor_pls", optional = true }
+bevy-inspector-egui = { version="0.14", optional=true }
 
-{% if within_cargo_project==false %}#[patch.crates-io]
+[target.'cfg(target_arch="wasm32")'.dependencies]
+bevy-web-resizer = "4.0"
+
+{%- if within_cargo_project==false %}#[patch.crates-io]
 #bevy = { git = "https://github.com/bevyengine/bevy", branch = "main" }
+{%- endif %}
 
-{% endif %}{% if within_cargo_project==false %}
+[dev-dependencies]
+anyhow = "1.0"
+
+{% if within_cargo_project==false -%}
+#[patch.crates-io]
 # Enable only a small amount of optimization in debug mode
 [profile.dev]
 opt-level = 1
+incremental = true
 
-# Enable high optimizations for dependencies (incl. Bevy), but not for our code:
-[profile.dev.package."*"]
+# Enable target specific optimizations in debug mode
+[target.'cfg(not(target_arch="wasm32"))'.profile.dev.package."*"]
 opt-level = 3
 
+[target.'cfg(target_arch="wasm32")'.profile.dev.package."*"]
+opt-level = 's'
+
+# Enable target specific optimizations in release mode
 [profile.release]
 lto = "thin"
+
+[target.'cfg(target_arch="wasm32")'.profile.release]
+opt-level = 's'
 {% endif %}

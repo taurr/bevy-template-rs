@@ -3,4 +3,5 @@ sub_templates = [
     "Binary",
     "Library",
     "Workflow",
+    "Minimal",
 ]
